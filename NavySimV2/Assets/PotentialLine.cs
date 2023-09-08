@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LineAddingTest : MonoBehaviour
+public class PotentialLine : MonoBehaviour
 {
     public GameObject field;
     public GameObject middleField;

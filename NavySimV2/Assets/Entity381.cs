@@ -60,6 +60,9 @@ public class Entity381 : MonoBehaviour
     public float attractionCoefficient = 22500;
     public float attractiveExponent = -1;
     public int numFields = 5;
+
+    public int numBackFields;
+    public int numFrontFields;
     public bool showPot = false;
 
     public EntitySize entitySize;

@@ -6,6 +6,7 @@ public class ControlMgr : MonoBehaviour
 {
     public static ControlMgr inst;
     public GameObject test;
+    public GameObject test2;
     private void Awake()
     {
         inst = this;
@@ -49,7 +50,8 @@ public class ControlMgr : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.P))
         {
-            test.GetComponent<LineAddingTest>().AddFields();
+            test.GetComponent<PotentialLine>().AddFields();
+            test2.GetComponent<PotentialLine>().AddFields();
         }
 
     }

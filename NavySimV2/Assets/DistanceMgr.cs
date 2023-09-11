@@ -159,6 +159,7 @@ public class DistanceMgr : MonoBehaviour
 
     void Update()
     {
+        /*
         if (isInitialized)
         {
             for (int k = 0; k < i/(fraction); k++)
@@ -169,6 +170,7 @@ public class DistanceMgr : MonoBehaviour
         }
         else
             Initialize();
+        */
     }
 
     public List<Potential> selectedEntityPotentials; // For debugging

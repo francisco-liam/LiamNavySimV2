@@ -98,6 +98,7 @@ Transform:
   - {fileID: 817593655}
   - {fileID: 1647665873}
   - {fileID: 1733406390963066479}
+  - {fileID: 1547578442498678751}
   - {fileID: 6423461799951108093}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -131,6 +132,7 @@ MonoBehaviour:
   underway: 0
   position: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
+  front: {x: 0, y: 0, z: 0}
   speed: 0
   desiredSpeed: 0
   heading: 0
@@ -213,6 +215,97 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &3773303286932051907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1547578442498678751}
+  - component: {fileID: 42736734110225163}
+  - component: {fileID: 787155377343835712}
+  - component: {fileID: 1698251622473676648}
+  m_Layer: 0
+  m_Name: Front
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1547578442498678751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3773303286932051907}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
+  m_Children: []
+  m_Father: {fileID: 857272126595392922}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &42736734110225163
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3773303286932051907}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &787155377343835712
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3773303286932051907}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!135 &1698251622473676648
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3773303286932051907}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3995143332517239545
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +337,7 @@ Transform:
   - {fileID: 6037889839494191763}
   - {fileID: 9031042187858410713}
   m_Father: {fileID: 857272126595392922}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4703999377878661957
 GameObject:
@@ -292,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 7690601395748300016}
   middleField: {fileID: 7690601395748300016}
-  numFields: 1
+  numFields: 0
   length: 10
 --- !u!65 &6609264799121065931
 BoxCollider:
@@ -353,7 +446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 7690601395748300016}
   middleField: {fileID: 7690601395748300016}
-  numFields: 1
+  numFields: 0
   length: 10
 --- !u!65 &579475418258449240
 BoxCollider:
@@ -475,8 +568,7 @@ MonoBehaviour:
   potentialDistanceThreshold: 500
   repulsiveCoefficient: 1000
   repulsiveExponent: -2
-  attractionCoefficient: 22500
-  entity: {fileID: 0}
+  entity: {fileID: 1054568539}
 --- !u!1001 &1281914929
 PrefabInstance:
   m_ObjectHideFlags: 0

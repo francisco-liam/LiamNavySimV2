@@ -34,6 +34,7 @@ public class Entity381 : MonoBehaviour
     public bool underway = false;
     public Vector3 position = Vector3.zero;
     public Vector3 velocity = Vector3.zero;
+    public Vector3 front = Vector3.zero;
 
     public float speed;
     public float desiredSpeed;
@@ -78,6 +79,7 @@ public class Entity381 : MonoBehaviour
     {
         cameraRig = transform.Find("CameraRig").gameObject;
         selectionCircle = transform.Find("Decorations").Find("SelectionCylinder").gameObject;
+        front = transform.Find("Front").transform.position;
     }
 
     // Update is called once per frame

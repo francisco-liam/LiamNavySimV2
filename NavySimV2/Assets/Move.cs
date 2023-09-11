@@ -48,62 +48,30 @@ public class Move : Command
     public DHDS ComputePotentialDHDS()
     {
         diff = movePosition - entity.position;
-        Potential p;
         repulsivePotential = Vector3.zero;
-        foreach (Entity381 ent in EntityMgr.inst.entities)
+        int layerMask = 1 << 10;
+        Collider[] colliders = Physics.OverlapSphere(entity.front, entity.potentialDistanceThreshold, layerMask);
+        fieldList = new List<Collider>(colliders);
+        foreach (Collider collider in colliders)
         {
-            if (ent == entity) continue;
-            p = DistanceMgr.inst.GetPotential(entity, ent);
-            for(int i =0; i < p.target.numFields; i++)
-            {
-                bool add = true;
-                UnitAI targetAi = p.target.gameObject.GetComponent<UnitAI>();
+            if (collider.gameObject.GetComponent<PotentialField>().entity == entity)
+                fieldList.Remove(collider);
+        }
+        foreach (Collider collider in fieldList)
+        {
+            PotentialField f = collider.gameObject.GetComponent<PotentialField>();
+            Entity381 target = f.entity;
+            UnitAI targetAi= target.gameObject.GetComponent<UnitAI>();
+            bool add = true;
+            Vector3 fieldDiff = f.transform.position - entity.front;
+            Vector3 direction = fieldDiff.normalized;
 
-                if (targetAi.commands.Count > 0 && targetAi.commands[0] is Follow && targetAi.commands[0].targetEntity == entity)
-                    add = false;
-                
-                if (!p.target.underway && add)
-                {
-                    if (p.distance[i] < p.ownship.potentialDistanceThreshold)
-                    {
-                        repulsivePotential += p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
-                            p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
-                    }
-                }
-                else
-                {
-                    if (p.distance[i] < p.ownship.potentialDistanceThreshold && add)
-                    {
-                        if (i != p.target.numFields - 1)
-                        {
-                            repulsivePotential += p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
-                                p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
-                        }
-                        else
-                        {
-                            repulsivePotential += p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
-                                p.target.repulsiveCoefficient / 2 * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
-                        }
-                    }
-                }
-            }
+            if (targetAi.commands.Count > 0 && targetAi.commands[0] is Follow && targetAi.commands[0].targetEntity == entity)
+                add = false;
 
-            if(p.target.entitySize != EntitySize.Small)
-            {
-                if (p.frontDistance < p.ownship.potentialDistanceThreshold)
-                {
-                    repulsivePotential += p.frontDirection * p.target.mass / 40 * p.target.length / 100 *
-                                p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.frontDiff.magnitude, p.target.repulsiveExponent);
-                }
-
-                if (p.backDistance < p.ownship.potentialDistanceThreshold)
-                {
-                    repulsivePotential += p.backDirection * p.target.mass / 40 * p.target.length / 100 *
-                                p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.backDiff.magnitude, p.target.repulsiveExponent);
-                }
-            }
-            
-            //repulsivePotential += p.diff;
+            if(add)
+                repulsivePotential += direction * target.mass / 40 * target.length / 20 *
+                          f.repulsiveCoefficient / target.numFields * Mathf.Pow(fieldDiff.magnitude, f.repulsiveExponent);
         }
         //repulsivePotential *= repulsiveCoefficient * Mathf.Pow(repulsivePotential.magnitude, repulsiveExponent);
         attractivePotential = movePosition - entity.position;
@@ -113,10 +81,7 @@ public class Move : Command
         potentialSum = attractivePotential - repulsivePotential;
 
         Vector3 distance = movePosition - entity.position;
-        float angDiff = Vector3.Angle(repulsivePotential, attractivePotential);
-        //if (entity.showPot)
-            //Debug.Log(distance.magnitude);
-        
+        float angDiff = Vector3.Angle(repulsivePotential, attractivePotential);        
 
         dh = Utils.Degrees360(Mathf.Rad2Deg * Mathf.Atan2(potentialSum.x, potentialSum.z));
 
@@ -126,6 +91,7 @@ public class Move : Command
 
         return new DHDS(dh, ds);
     }
+    public List<Collider> fieldList;
     public Vector3 attractivePotential = Vector3.zero;
     public Vector3 potentialSum = Vector3.zero;
     public Vector3 repulsivePotential = Vector3.zero;

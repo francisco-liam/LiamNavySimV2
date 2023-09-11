@@ -12,13 +12,13 @@ public class PotentialLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AddFields();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.RotateAround(middleField.transform.position, Vector3.up, 20*Time.deltaTime);
+        //transform.RotateAround(middleField.transform.position, Vector3.up, 20*Time.deltaTime);
     }
 
     public void AddFields()

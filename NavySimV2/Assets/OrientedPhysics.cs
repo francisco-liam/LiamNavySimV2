@@ -41,6 +41,7 @@ public class OrientedPhysics : MonoBehaviour
         entity.velocity.z = Mathf.Cos(entity.heading * Mathf.Deg2Rad) * entity.speed;
 
         entity.position = entity.position + entity.velocity * Time.deltaTime;
+        entity.front = entity.front + entity.velocity * Time.deltaTime;
         transform.localPosition = entity.position;
 
         eulerRotation.y = entity.heading;

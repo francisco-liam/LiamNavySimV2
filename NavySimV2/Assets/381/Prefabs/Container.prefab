@@ -88,7 +88,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43086499830635564}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 195}
+  m_LocalPosition: {x: 0, y: 0, z: 175}
   m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
   m_Children: []
   m_Father: {fileID: 4175921536809093429}
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 7725060838523510941}
   - component: {fileID: 5059268877436323240}
   m_Layer: 0
-  m_Name: FrontFields  - Container
+  m_Name: FrontFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3239595313341372982}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 97.5}
+  m_LocalPosition: {x: 0, y: 0, z: 87.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4865160065312734827}
@@ -199,7 +199,7 @@ MonoBehaviour:
   field: {fileID: 7665002610539341789}
   middleField: {fileID: 7665002610539341789}
   numFields: 4
-  length: 195
+  length: 175
 --- !u!65 &5059268877436323240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 195}
+  m_Size: {x: 30, y: 25, z: 175}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3673889517476566065
 GameObject:
@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4865160065312734827}
   m_Layer: 0
-  m_Name: PotentialFields - Container
+  m_Name: PotentialFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 3901007321636399852}
   m_Layer: 0
   m_Name: Container
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,15 +327,15 @@ MonoBehaviour:
   maxSpeed: 20
   minSpeed: 0
   mass: 4000
-  length: 390
-  potentialDistanceThreshold: 300
+  length: 350
+  potentialDistanceThreshold: 350
   repulsiveCoefficient: 1800
   repulsiveExponent: -2
   attractionCoefficient: 22500
   attractiveExponent: -1
-  numFields: 9
-  numBackFields: 0
-  numFrontFields: 0
+  numFields: 5
+  numBackFields: 2
+  numFrontFields: 2
   showPot: 0
   entitySize: 3
   entityType: 1
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 6162208967242418141}
   - component: {fileID: 6815253559223280103}
   m_Layer: 0
-  m_Name: BackFields  - Container
+  m_Name: BackFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -426,7 +426,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6897857961859604163}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -97.5}
+  m_LocalPosition: {x: 0, y: 0, z: -87.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4865160065312734827}
@@ -447,7 +447,7 @@ MonoBehaviour:
   field: {fileID: 7665002610539341789}
   middleField: {fileID: 7665002610539341789}
   numFields: 4
-  length: 195
+  length: 175
 --- !u!65 &6815253559223280103
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -459,7 +459,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 195}
+  m_Size: {x: 30, y: 25, z: 175}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7665002610539341789
 GameObject:
@@ -551,7 +551,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7991745474891009166
 MonoBehaviour:
@@ -565,7 +565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24771dd1a79b85f4ea2872630e018def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potentialDistanceThreshold: 500
   repulsiveCoefficient: 1000
   repulsiveExponent: -2
   entity: {fileID: 1768214292}

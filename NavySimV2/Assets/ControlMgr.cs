@@ -50,9 +50,17 @@ public class ControlMgr : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.P))
         {
-            test.GetComponent<PotentialLine>().AddFields();
-            test2.GetComponent<PotentialLine>().AddFields();
+            TestCases.inst.ToggleFields(SelectionMgr.inst.selectedEntities);
         }
+
+        if (Input.GetKey(KeyCode.G))
+            TestCases.inst.MoveFields(SelectionMgr.inst.selectedEntities, "FrontFields", true);
+        if (Input.GetKey(KeyCode.H))
+            TestCases.inst.MoveFields(SelectionMgr.inst.selectedEntities, "FrontFields", false);
+        if (Input.GetKey(KeyCode.B))
+            TestCases.inst.MoveFields(SelectionMgr.inst.selectedEntities, "BackFields", true);
+        if (Input.GetKey(KeyCode.N))
+            TestCases.inst.MoveFields(SelectionMgr.inst.selectedEntities, "BackFields", false);
 
     }
 

@@ -80,6 +80,21 @@ public class Entity381 : MonoBehaviour
         cameraRig = transform.Find("CameraRig").gameObject;
         selectionCircle = transform.Find("Decorations").Find("SelectionCylinder").gameObject;
         front = transform.Find("Front").transform.position;
+        if(entitySize == EntitySize.Small)
+        {
+            numBackFields = 0;
+            numFrontFields = 0;
+        }
+        else if(entitySize == EntitySize.Medium)
+        {
+            numBackFields = 1;
+            numFrontFields = 1;
+        }
+        else
+        {
+            numBackFields = 2;
+            numFrontFields = 2;
+        }
     }
 
     // Update is called once per frame

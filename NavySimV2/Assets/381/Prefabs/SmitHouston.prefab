@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2026450588549185310}
   m_Layer: 0
-  m_Name: PotentialFields - SmitHouston
+  m_Name: PotentialFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 8642807406788719867}
   m_Layer: 0
   m_Name: SmitHouston
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,15 +175,15 @@ MonoBehaviour:
   maxSpeed: 20
   minSpeed: 0
   mass: 500
-  length: 100
-  potentialDistanceThreshold: 200
-  repulsiveCoefficient: 2850
-  repulsiveExponent: -1.8
-  attractionCoefficient: 12500
+  length: 60
+  potentialDistanceThreshold: 300
+  repulsiveCoefficient: 7300
+  repulsiveExponent: -1.85
+  attractionCoefficient: 20000
   attractiveExponent: -1
   numFields: 3
-  numBackFields: 0
-  numFrontFields: 0
+  numBackFields: 1
+  numFrontFields: 1
   showPot: 0
   entitySize: 2
   entityType: 6
@@ -275,7 +275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164280832094647685}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalPosition: {x: 0, y: 0, z: 30}
   m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
   m_Children: []
   m_Father: {fileID: 5250705106703308689}
@@ -365,7 +365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689692761621689728}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -25}
+  m_LocalPosition: {x: 0, y: 0, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2026450588549185310}
@@ -386,7 +386,7 @@ MonoBehaviour:
   field: {fileID: 2797821273390469425}
   middleField: {fileID: 2797821273390469425}
   numFields: 1
-  length: 50
+  length: 30
 --- !u!65 &8131735185308886309
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -398,7 +398,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 50}
+  m_Size: {x: 30, y: 25, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2797821273390469425
 GameObject:
@@ -490,7 +490,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &296603014044664626
 MonoBehaviour:
@@ -504,7 +504,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24771dd1a79b85f4ea2872630e018def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potentialDistanceThreshold: 500
   repulsiveCoefficient: 1000
   repulsiveExponent: -2
   entity: {fileID: 1307310575}
@@ -534,7 +533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8005629841231577533}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 25}
+  m_LocalPosition: {x: 0, y: 0, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2026450588549185310}
@@ -555,7 +554,7 @@ MonoBehaviour:
   field: {fileID: 2797821273390469425}
   middleField: {fileID: 2797821273390469425}
   numFields: 1
-  length: 50
+  length: 30
 --- !u!65 &2881135959910510923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -567,7 +566,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 50}
+  m_Size: {x: 30, y: 25, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &918452543
 PrefabInstance:

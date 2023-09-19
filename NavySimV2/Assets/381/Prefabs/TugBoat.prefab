@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2548341779736220852}
   - component: {fileID: 2499586100415885145}
   m_Layer: 0
-  m_Name: FrontFields  - TugBoat
+  m_Name: FrontFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 3762411860104648064}
   - component: {fileID: 8285944468707259285}
   m_Layer: 0
-  m_Name: BackFields  - TugBoat
+  m_Name: BackFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1167605982972320731
 MonoBehaviour:
@@ -259,7 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24771dd1a79b85f4ea2872630e018def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potentialDistanceThreshold: 500
   repulsiveCoefficient: 1000
   repulsiveExponent: -2
   entity: {fileID: 8941482605437012089}
@@ -310,7 +309,7 @@ GameObject:
   - component: {fileID: 3375867045618939810}
   m_Layer: 0
   m_Name: TugBoat
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,13 +360,13 @@ MonoBehaviour:
   maxSpeed: 20
   minSpeed: 0
   mass: 50
-  length: 80
-  potentialDistanceThreshold: 250
-  repulsiveCoefficient: 20000
+  length: 40
+  potentialDistanceThreshold: 100
+  repulsiveCoefficient: 14000
   repulsiveExponent: -1.9
   attractionCoefficient: 22500
   attractiveExponent: -1
-  numFields: 5
+  numFields: 1
   numBackFields: 0
   numFrontFields: 0
   showPot: 0
@@ -505,7 +504,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9014609777415257264}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 40}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
   m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
   m_Children: []
   m_Father: {fileID: 8941482605437012094}

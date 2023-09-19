@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 7493125247435036733}
   m_Layer: 0
   m_Name: Pilot vessel
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,8 +114,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 20}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 10, y: 10, z: 15}
+  m_Center: {x: 0, y: 0, z: -1}
 --- !u!114 &1054568539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,12 +142,12 @@ MonoBehaviour:
   maxSpeed: 30
   minSpeed: 0
   mass: 40
-  length: 20
-  potentialDistanceThreshold: 80
-  repulsiveCoefficient: 10000
-  repulsiveExponent: -2
-  attractionCoefficient: 14000
-  attractiveExponent: -1.15
+  length: 15
+  potentialDistanceThreshold: 100
+  repulsiveCoefficient: 14000
+  repulsiveExponent: -1.7
+  attractionCoefficient: 12000
+  attractiveExponent: -1
   numFields: 1
   numBackFields: 0
   numFrontFields: 0
@@ -242,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3773303286932051907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 7.5}
   m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
   m_Children: []
   m_Father: {fileID: 857272126595392922}
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6423461799951108093}
   m_Layer: 0
-  m_Name: PotentialFields - Pilot vessel
+  m_Name: PotentialFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 599233175773557434}
   - component: {fileID: 6609264799121065931}
   m_Layer: 0
-  m_Name: BackFields - Pilot vessel
+  m_Name: BackFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -365,7 +365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4703999377878661957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -3.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6423461799951108093}
@@ -386,7 +386,7 @@ MonoBehaviour:
   field: {fileID: 7690601395748300016}
   middleField: {fileID: 7690601395748300016}
   numFields: 0
-  length: 10
+  length: 7.5
 --- !u!65 &6609264799121065931
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -398,7 +398,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 10}
+  m_Size: {x: 30, y: 25, z: 7.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7306845830625005014
 GameObject:
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 2908192226356055435}
   - component: {fileID: 579475418258449240}
   m_Layer: 0
-  m_Name: FrontFields - Pilot vessel
+  m_Name: FrontFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -426,7 +426,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7306845830625005014}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 3.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6423461799951108093}
@@ -447,7 +447,7 @@ MonoBehaviour:
   field: {fileID: 7690601395748300016}
   middleField: {fileID: 7690601395748300016}
   numFields: 0
-  length: 10
+  length: 7.5
 --- !u!65 &579475418258449240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -459,7 +459,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 10}
+  m_Size: {x: 30, y: 25, z: 7.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7690601395748300016
 GameObject:
@@ -551,7 +551,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2094411609826350258
 MonoBehaviour:
@@ -565,7 +565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24771dd1a79b85f4ea2872630e018def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potentialDistanceThreshold: 500
   repulsiveCoefficient: 1000
   repulsiveExponent: -2
   entity: {fileID: 1054568539}

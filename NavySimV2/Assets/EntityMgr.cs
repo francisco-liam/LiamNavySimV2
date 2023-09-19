@@ -19,6 +19,7 @@ public class EntityMgr : MonoBehaviour
     public List<GameObject> entityPrefabs;
     public GameObject entitiesRoot;
     public List<Entity381> entities;
+    public PotentialField smallField, mediumField, largeField;
 
     public static int entityId = 0;
 
@@ -33,6 +34,21 @@ public class EntityMgr : MonoBehaviour
                 entityGo.name = et.ToString() + entityId++;
                 entities.Add(entity);
             }
+        }
+        if(entity.entitySize == EntitySize.Small)
+        {
+            entity.repulsiveCoefficient = smallField.repulsiveCoefficient;
+            entity.repulsiveExponent = smallField.repulsiveExponent;
+        }
+        if (entity.entitySize == EntitySize.Medium)
+        {
+            entity.repulsiveCoefficient = mediumField.repulsiveCoefficient;
+            entity.repulsiveExponent = mediumField.repulsiveExponent;
+        }
+        if (entity.entitySize == EntitySize.Large)
+        {
+            entity.repulsiveCoefficient = largeField.repulsiveCoefficient;
+            entity.repulsiveExponent = largeField.repulsiveExponent;
         }
         return entity;
     }

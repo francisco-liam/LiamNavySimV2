@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 3619923480793620434}
   - component: {fileID: 8052198142229811619}
   m_Layer: 0
-  m_Name: BackFields - OrientExplorer
+  m_Name: BackFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3420136815592672379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -60}
+  m_LocalPosition: {x: 0, y: 0, z: -42.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2282275081195308009}
@@ -108,7 +108,7 @@ MonoBehaviour:
   field: {fileID: 7848870927373106525}
   middleField: {fileID: 7848870927373106525}
   numFields: 2
-  length: 120
+  length: 85
 --- !u!65 &8052198142229811619
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -120,7 +120,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 120}
+  m_Size: {x: 30, y: 25, z: 85}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3691091085765995739
 GameObject:
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 9123646030452743941}
   - component: {fileID: 2362262789258869824}
   - component: {fileID: 2339217580129260290}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3691091085765995739}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 120}
+  m_LocalPosition: {x: 0, y: 0, z: 85}
   m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
   m_Children: []
   m_Father: {fileID: 3924768975102359382}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 8885022236806490393}
   m_Layer: 0
   m_Name: OrientExplorer
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,7 +266,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 80, z: 200}
+  m_Size: {x: 40, y: 80, z: 170}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1124869747
 MonoBehaviour:
@@ -294,15 +294,15 @@ MonoBehaviour:
   maxSpeed: 20
   minSpeed: 0
   mass: 1200
-  length: 240
-  potentialDistanceThreshold: 250
+  length: 170
+  potentialDistanceThreshold: 350
   repulsiveCoefficient: 2750
   repulsiveExponent: -1.87
   attractionCoefficient: 22500
   attractiveExponent: -1
   numFields: 5
-  numBackFields: 0
-  numFrontFields: 0
+  numBackFields: 2
+  numFrontFields: 2
   showPot: 0
   entitySize: 3
   entityType: 4
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 3996198681241306719}
   - component: {fileID: 3435607058431926090}
   - component: {fileID: 6632711097181425017}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PotentialField - OrientExplorer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6632711097181425017
 MonoBehaviour:
@@ -471,7 +471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24771dd1a79b85f4ea2872630e018def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potentialDistanceThreshold: 500
   repulsiveCoefficient: 1000
   repulsiveExponent: -2
   entity: {fileID: 1124869747}
@@ -487,7 +486,7 @@ GameObject:
   - component: {fileID: 1507108742525629936}
   - component: {fileID: 2400932140601290151}
   m_Layer: 0
-  m_Name: FrontFields - OrientExplorer
+  m_Name: FrontFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,7 +500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9067572364404815545}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 60}
+  m_LocalPosition: {x: 0, y: 0, z: 42.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2282275081195308009}
@@ -522,7 +521,7 @@ MonoBehaviour:
   field: {fileID: 7848870927373106525}
   middleField: {fileID: 7848870927373106525}
   numFields: 2
-  length: 120
+  length: 85
 --- !u!65 &2400932140601290151
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -534,7 +533,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 120}
+  m_Size: {x: 30, y: 25, z: 85}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9175117560469144365
 GameObject:
@@ -546,7 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2282275081195308009}
   m_Layer: 0
-  m_Name: PotentialFields - OrientExplorer
+  m_Name: PotentialFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

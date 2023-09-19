@@ -122,7 +122,6 @@ public class TestCases : MonoBehaviour
         ent0.GetComponent<TestCaseEntity>().move = new Vector3(-1000, 0, 1200);
         ent0.GetComponent<TestCaseEntity>().added = false;
 
-
         Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType7, new Vector3(1000, 0, 1200), Vector3.zero);
         ent1.desiredHeading = 90f;
         ent1.heading = 90f;
@@ -130,6 +129,11 @@ public class TestCases : MonoBehaviour
         ent1.GetComponent<TestCaseEntity>().move = new Vector3(4000, 0, 1200);
         ent1.GetComponent<TestCaseEntity>().testCase = TestCase.Five;
         ent1.GetComponent<TestCaseEntity>().added = false;
+
+        MoveFields(ent0, "FrontFields", false, 15);
+        MoveFields(ent0, "BackFields", false, -135);
+        //MoveFields(ent1, "FrontFields", false, 45);
+        //MoveFields(ent1, "BackFields", false, -135);
 
         DistanceMgr.inst.Initialize();
     }
@@ -159,6 +163,12 @@ public class TestCases : MonoBehaviour
         ent1.GetComponent<TestCaseEntity>().testCase = TestCase.Six;
         ent1.GetComponent<TestCaseEntity>().added = false;
 
+
+        MoveFields(ent0, "FrontFields", false, 45);
+        MoveFields(ent0, "BackFields", false, 45);
+        //MoveFields(ent1, "FrontFields", false, 45);
+        MoveFields(ent1, "BackFields", false, 30);
+
         DistanceMgr.inst.Initialize();
     }
 
@@ -177,13 +187,18 @@ public class TestCases : MonoBehaviour
         ent0.GetComponent<TestCaseEntity>().move = new Vector3(-10000, 0, 1200);
         ent0.GetComponent<TestCaseEntity>().added = false;
 
-        Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType7, new Vector3(2500, 0, 1700), Vector3.zero);
+        Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType7, new Vector3(2500, 0, 1400), Vector3.zero);
         ent1.desiredHeading = 180f;
         ent1.heading = 180f;
         ent1.gameObject.AddComponent<TestCaseEntity>();
         ent1.GetComponent<TestCaseEntity>().testCase = TestCase.Seven;
         ent1.GetComponent<TestCaseEntity>().move = new Vector3(2500, 0, -10000);
         ent1.GetComponent<TestCaseEntity>().added = false;
+
+        MoveFields(ent0, "FrontFields", false, 90);
+        MoveFields(ent0, "BackFields", false, -90);
+        MoveFields(ent1, "FrontFields", false, -45);
+        MoveFields(ent1, "BackFields", false, -45);
 
         DistanceMgr.inst.Initialize();
     }
@@ -301,6 +316,42 @@ public class TestCases : MonoBehaviour
         }
 
         DistanceMgr.inst.Initialize();
+
+    }
+
+    public void ToggleFields(List<Entity381> entities)
+    {
+        foreach (Entity381 entity in entities)
+        {
+            Transform fields = entity.transform.Find("PotentialFields");
+            MeshRenderer[] meshes = fields.GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer mesh in meshes)
+                mesh.enabled = !mesh.enabled;
+        }
+    }
+
+    public void MoveFields(List<Entity381> entities, string fieldLine, bool rotateCW)
+    {
+        foreach (Entity381 entity in entities)
+        {
+            Transform fields = entity.transform.Find("PotentialFields").Find(fieldLine);
+            GameObject middleField = fields.GetComponent<PotentialLine>().middleField;
+            if (rotateCW)
+                fields.transform.RotateAround(middleField.transform.position, Vector3.up, -20 * Time.deltaTime);
+            else
+                fields.transform.RotateAround(middleField.transform.position, Vector3.up, 20 * Time.deltaTime);
+
+        }
+    }
+
+    public void MoveFields(Entity381 entity, string fieldLine, bool rotateCW, float degrees)
+    {
+        Transform fields = entity.transform.Find("PotentialFields").Find(fieldLine);
+        GameObject middleField = fields.GetComponent<PotentialLine>().middleField;
+        if (rotateCW)
+            fields.transform.RotateAround(middleField.transform.position, Vector3.up, -degrees);
+        else
+            fields.transform.RotateAround(middleField.transform.position, Vector3.up, degrees);
 
     }
 

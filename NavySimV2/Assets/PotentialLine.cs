@@ -7,11 +7,15 @@ public class PotentialLine : MonoBehaviour
     public GameObject field;
     public GameObject middleField;
     public int numFields;
-    public int length;
+    public float length;
     
     // Start is called before the first frame update
     void Start()
     {
+        if(gameObject.name == "FrontFields")
+            numFields = field.GetComponent<PotentialField>().entity.numFrontFields;
+        else 
+            numFields = field.GetComponent<PotentialField>().entity.numBackFields;
         AddFields();
     }
 

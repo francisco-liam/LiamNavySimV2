@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966897947865092995}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 80}
   m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
   m_Children: []
   m_Father: {fileID: 2020023502598012820}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 6729790410895648635}
   m_Layer: 0
   m_Name: DDG51
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,15 +190,15 @@ MonoBehaviour:
   maxSpeed: 30
   minSpeed: 0
   mass: 1000
-  length: 200
-  potentialDistanceThreshold: 200
-  repulsiveCoefficient: 3700
-  repulsiveExponent: -1.89
-  attractionCoefficient: 10000
-  attractiveExponent: -1
+  length: 160
+  potentialDistanceThreshold: 300
+  repulsiveCoefficient: 7500
+  repulsiveExponent: -1.85
+  attractionCoefficient: 20000
+  attractiveExponent: -1.1
   numFields: 5
-  numBackFields: 0
-  numFrontFields: 0
+  numBackFields: 2
+  numFrontFields: 2
   showPot: 0
   entitySize: 2
   entityType: 0
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 8000115984734261638}
   - component: {fileID: 4335631907094462190}
   m_Layer: 0
-  m_Name: FrontFields - DDG51
+  m_Name: FrontFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,7 +332,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5434043863459627164}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalPosition: {x: 0, y: 0, z: 40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6264668147527962984}
@@ -353,7 +353,7 @@ MonoBehaviour:
   field: {fileID: 5519123263357578216}
   middleField: {fileID: 5519123263357578216}
   numFields: 2
-  length: 100
+  length: 80
 --- !u!65 &4335631907094462190
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -365,7 +365,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 100}
+  m_Size: {x: 30, y: 25, z: 80}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5519123263357578216
 GameObject:
@@ -457,7 +457,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7604226064091345650
 MonoBehaviour:
@@ -471,7 +471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24771dd1a79b85f4ea2872630e018def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potentialDistanceThreshold: 200
   repulsiveCoefficient: 3700
   repulsiveExponent: -1.89
   entity: {fileID: 2020023502598012843}
@@ -520,7 +519,7 @@ GameObject:
   - component: {fileID: 543953548119162153}
   - component: {fileID: 2231829794359316355}
   m_Layer: 0
-  m_Name: BackFields - DDG51
+  m_Name: BackFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -534,7 +533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7979456102440702319}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -50}
+  m_LocalPosition: {x: 0, y: 0, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6264668147527962984}
@@ -555,7 +554,7 @@ MonoBehaviour:
   field: {fileID: 5519123263357578216}
   middleField: {fileID: 5519123263357578216}
   numFields: 2
-  length: 100
+  length: 80
 --- !u!65 &2231829794359316355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -567,7 +566,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 100}
+  m_Size: {x: 30, y: 25, z: 80}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2020023503028139519
 PrefabInstance:

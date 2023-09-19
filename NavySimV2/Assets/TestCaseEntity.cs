@@ -99,12 +99,12 @@ public class TestCaseEntity : MonoBehaviour
 
         if (ownAI.commands.Count > 0)
         {
-            if ((ownAI.commands[0].movePosition - ownEnt.position).sqrMagnitude < 10000 && commandNumber != 4)
+            if ((ownAI.commands[0].movePosition - ownEnt.position).sqrMagnitude < 15000 && commandNumber != 4)
             {
                 ownAI.commands[0].Stop();
                 ownAI.commands.RemoveAt(0);
             }
-            else if((ownAI.commands[0].movePosition - ownEnt.position).sqrMagnitude < 10000 && commandNumber == 4)
+            else if((ownAI.commands[0].movePosition - ownEnt.position).sqrMagnitude < 15000 && commandNumber == 4)
             {
                 running = false;
             }
@@ -150,7 +150,7 @@ public class TestCaseEntity : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (running)
+        if (running && other.gameObject.transform.tag == "Ship")
         {
             collisionsTime += Time.deltaTime;
         }

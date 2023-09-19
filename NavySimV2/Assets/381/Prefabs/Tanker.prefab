@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 2630860707346529093}
   m_Layer: 0
   m_Name: Tanker
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,15 +142,15 @@ MonoBehaviour:
   maxSpeed: 15
   minSpeed: 0
   mass: 1500
-  length: 340
+  length: 300
   potentialDistanceThreshold: 350
   repulsiveCoefficient: 7500
   repulsiveExponent: -2
   attractionCoefficient: 22500
   attractiveExponent: -1
   numFields: 5
-  numBackFields: 0
-  numFrontFields: 0
+  numBackFields: 2
+  numFrontFields: 2
   showPot: 0
   entitySize: 3
   entityType: 7
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 1488051389755099909}
   - component: {fileID: 1056920790704159206}
   m_Layer: 0
-  m_Name: FrontFields  - Tanker
+  m_Name: FrontFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876824244743342418}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 85}
+  m_LocalPosition: {x: 0, y: 0, z: 75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1738392810104057789}
@@ -262,7 +262,7 @@ MonoBehaviour:
   field: {fileID: 6761443207511931226}
   middleField: {fileID: 6761443207511931226}
   numFields: 2
-  length: 170
+  length: 150
 --- !u!65 &1056920790704159206
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 170}
+  m_Size: {x: 30, y: 25, z: 150}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6346658430101348017
 GameObject:
@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 2867155676506387707}
   - component: {fileID: 8384053502327135299}
   m_Layer: 0
-  m_Name: BackFields  - Tanker
+  m_Name: BackFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6346658430101348017}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -85}
+  m_LocalPosition: {x: 0, y: 0, z: -75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1738392810104057789}
@@ -323,7 +323,7 @@ MonoBehaviour:
   field: {fileID: 6761443207511931226}
   middleField: {fileID: 6761443207511931226}
   numFields: 2
-  length: 170
+  length: 150
 --- !u!65 &8384053502327135299
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 170}
+  m_Size: {x: 30, y: 25, z: 150}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6761443207511931226
 GameObject:
@@ -427,7 +427,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3020371993684000670
 MonoBehaviour:
@@ -441,7 +441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24771dd1a79b85f4ea2872630e018def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potentialDistanceThreshold: 500
   repulsiveCoefficient: 1000
   repulsiveExponent: -2
   entity: {fileID: 1031111536}
@@ -472,7 +471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7269241296938327956}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 170}
+  m_LocalPosition: {x: 0, y: 0, z: 150}
   m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
   m_Children: []
   m_Father: {fileID: 1321054300686026329}
@@ -546,7 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1738392810104057789}
   m_Layer: 0
-  m_Name: PotentialFields - Tanker
+  m_Name: PotentialFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

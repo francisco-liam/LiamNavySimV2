@@ -84,16 +84,19 @@ public class Entity381 : MonoBehaviour
         {
             numBackFields = 0;
             numFrontFields = 0;
+            numFields = 1;
         }
         else if(entitySize == EntitySize.Medium)
         {
             numBackFields = 1;
             numFrontFields = 1;
+            numFields = 3;
         }
         else
         {
             numBackFields = 2;
             numFrontFields = 2;
+            numFields = 5;
         }
     }
 

@@ -87,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3245495074927847258}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7211761634510749415}
@@ -108,7 +108,7 @@ MonoBehaviour:
   field: {fileID: 9080414325839483739}
   middleField: {fileID: 9080414325839483739}
   numFields: 1
-  length: 30
+  length: 60
 --- !u!65 &822327646355113211
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -120,7 +120,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 30}
+  m_Size: {x: 30, y: 25, z: 60}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3559011883692968498
 GameObject:
@@ -182,7 +182,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4288346438973435553}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 30}
+  m_LocalPosition: {x: 0, y: 0, z: 60}
   m_LocalScale: {x: 12.5, y: 12.5, z: 12.5}
   m_Children: []
   m_Father: {fileID: 8516214366006661343}
@@ -272,7 +272,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5234038429211237990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -15}
+  m_LocalPosition: {x: 0, y: 0, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7211761634510749415}
@@ -293,7 +293,7 @@ MonoBehaviour:
   field: {fileID: 9080414325839483739}
   middleField: {fileID: 9080414325839483739}
   numFields: 1
-  length: 30
+  length: 60
 --- !u!65 &4511968526962055232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 25, z: 30}
+  m_Size: {x: 30, y: 25, z: 60}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8516214366006661342
 GameObject:
@@ -388,11 +388,11 @@ MonoBehaviour:
   maxSpeed: 19
   minSpeed: 0
   mass: 200
-  length: 60
+  length: 120
   potentialDistanceThreshold: 300
-  repulsiveCoefficient: 7300
-  repulsiveExponent: -1.85
-  attractionCoefficient: 20000
+  repulsiveCoefficient: 3750
+  repulsiveExponent: -1.62
+  attractionCoefficient: 23000
   attractiveExponent: -1
   numFields: 3
   numBackFields: 1

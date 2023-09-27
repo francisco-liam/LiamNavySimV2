@@ -6,6 +6,11 @@ public class PotentialField : MonoBehaviour
 {
     public float repulsiveCoefficient = 1000;
     public float repulsiveExponent = -2.0f;
+    public float attractiveCoefficient;
+    public float attractiveExponent;
+    public float potentialThreshold;
+
+
     public Entity381 entity;
 
     // Start is called before the first frame update

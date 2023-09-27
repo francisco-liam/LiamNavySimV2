@@ -171,6 +171,7 @@ public class DistanceMgr : MonoBehaviour
         else
             Initialize();
         */
+        
     }
 
     public List<Potential> selectedEntityPotentials; // For debugging
@@ -193,6 +194,8 @@ public class DistanceMgr : MonoBehaviour
                 p1 = potentials2D[i, j];
                 p2 = potentials2D[j, i];
 
+                //p1.target.gameObject.GetComponentInChildren<PotentialField>();
+                
                 Vector3 p1ShiftVec = new Vector3();
                 p1ShiftVec.x = (Mathf.Sin(p1.target.heading * Mathf.Deg2Rad));
                 p1ShiftVec.y = 0;
@@ -208,6 +211,8 @@ public class DistanceMgr : MonoBehaviour
 
                 Vector3 p2ShiftVecRight = new Vector3(p2ShiftVec.z, 0, -p2ShiftVec.x);
                 Vector3 p2ShiftVecLeft = -p2ShiftVecRight;
+
+                
 
                 //p1
                 for (int k = 0; k < p1.target.numFields; k++)

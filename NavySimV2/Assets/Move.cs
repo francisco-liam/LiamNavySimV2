@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,7 +55,7 @@ public class Move : Command
         fieldList = new List<Collider>(colliders);
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject.GetComponent<PotentialField>().entity == entity)
+            if (collider == null || collider.gameObject.GetComponent<PotentialField>().entity == entity)
                 fieldList.Remove(collider);
         }
         foreach (Collider collider in fieldList)
@@ -69,9 +70,13 @@ public class Move : Command
             if (targetAi.commands.Count > 0 && targetAi.commands[0] is Follow && targetAi.commands[0].targetEntity == entity)
                 add = false;
 
-            if(add)
+            if (add)
+            {
                 repulsivePotential += direction * target.mass / 40 * target.length / 20 *
                           f.repulsiveCoefficient / target.numFields * Mathf.Pow(fieldDiff.magnitude, f.repulsiveExponent);
+                //repulsivePotential += Vector3.Cross(direction,Vector3.up) * target.mass / 40 * target.length / 20 *
+                         //f.repulsiveCoefficient / target.numFields * Mathf.Pow(fieldDiff.magnitude, f.repulsiveExponent);
+            }        
         }
         //repulsivePotential *= repulsiveCoefficient * Mathf.Pow(repulsivePotential.magnitude, repulsiveExponent);
         attractivePotential = movePosition - entity.position;

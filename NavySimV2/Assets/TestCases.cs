@@ -119,7 +119,7 @@ public class TestCases : MonoBehaviour
         ent0.heading = 270f;
         ent0.gameObject.AddComponent<TestCaseEntity>();
         ent0.GetComponent<TestCaseEntity>().testCase = TestCase.Five;
-        ent0.GetComponent<TestCaseEntity>().move = new Vector3(-1000, 0, 1200);
+        ent0.GetComponent<TestCaseEntity>().move = new Vector3(2000, 0, 1200);
         ent0.GetComponent<TestCaseEntity>().added = false;
 
         Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType7, new Vector3(1000, 0, 1200), Vector3.zero);
@@ -130,10 +130,10 @@ public class TestCases : MonoBehaviour
         ent1.GetComponent<TestCaseEntity>().testCase = TestCase.Five;
         ent1.GetComponent<TestCaseEntity>().added = false;
 
-        MoveFields(ent0, "FrontFields", false, 15);
-        MoveFields(ent0, "BackFields", false, -135);
-        //MoveFields(ent1, "FrontFields", false, 45);
-        //MoveFields(ent1, "BackFields", false, -135);
+        MoveFields(ent0, "FrontFields", false, 5);
+        MoveFields(ent0, "BackFields", false, 5);
+        MoveFields(ent1, "FrontFields", false, 5);
+        MoveFields(ent1, "BackFields", false, 5);
 
         DistanceMgr.inst.Initialize();
     }

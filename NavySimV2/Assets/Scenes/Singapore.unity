@@ -6543,6 +6543,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   repulsiveCoefficient: 5820
   repulsiveExponent: -1.78
+  attractiveCoefficient: 22500
+  attractiveExponent: -1
+  potentialThreshold: 350
   entity: {fileID: 0}
 --- !u!135 &1003483007
 SphereCollider:
@@ -7672,6 +7675,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   repulsiveCoefficient: 8500
   repulsiveExponent: -1.775
+  attractiveCoefficient: 20000
+  attractiveExponent: -1
+  potentialThreshold: 300
   entity: {fileID: 0}
 --- !u!135 &1165329166
 SphereCollider:
@@ -9209,8 +9215,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345303798}
-  m_LocalRotation: {x: -0.032068633, y: 0.26973024, z: 0.008988189, w: 0.96235985}
-  m_LocalPosition: {x: -219.99393, y: -150.8503, z: 43.15423}
+  m_LocalRotation: {x: 0.04279255, y: 0.6143655, z: 0.033399496, w: -0.78715205}
+  m_LocalPosition: {x: 1961.5707, y: -122.49885, z: 1103.8124}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1517180312}
@@ -10111,6 +10117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   repulsiveCoefficient: 14000
   repulsiveExponent: -1.7
+  attractiveCoefficient: 14000
+  attractiveExponent: -1
+  potentialThreshold: 100
   entity: {fileID: 0}
 --- !u!135 &1503833103
 SphereCollider:

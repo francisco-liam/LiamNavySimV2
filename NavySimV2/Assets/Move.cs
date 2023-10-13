@@ -49,34 +49,47 @@ public class Move : Command
     public DHDS ComputePotentialDHDS()
     {
         diff = movePosition - entity.position;
+        Potential p;
         repulsivePotential = Vector3.zero;
-        int layerMask = 1 << 10;
-        Collider[] colliders = Physics.OverlapSphere(entity.front, entity.potentialDistanceThreshold, layerMask);
-        fieldList = new List<Collider>(colliders);
-        foreach (Collider collider in colliders)
+        foreach (Entity381 ent in EntityMgr.inst.entities)
         {
-            if (collider == null || collider.gameObject.GetComponent<PotentialField>().entity == entity)
-                fieldList.Remove(collider);
-        }
-        foreach (Collider collider in fieldList)
-        {
-            PotentialField f = collider.gameObject.GetComponent<PotentialField>();
-            Entity381 target = f.entity;
-            UnitAI targetAi= target.gameObject.GetComponent<UnitAI>();
-            bool add = true;
-            Vector3 fieldDiff = f.transform.position - entity.front;
-            Vector3 direction = fieldDiff.normalized;
-
-            if (targetAi.commands.Count > 0 && targetAi.commands[0] is Follow && targetAi.commands[0].targetEntity == entity)
-                add = false;
-
-            if (add)
+            if (ent == entity) continue;
+            p = DistanceMgr.inst.GetPotential(entity, ent);
+            for (int i = 0; i < p.target.numFields; i++)
             {
-                repulsivePotential += direction * target.mass / 40 * target.length / 20 *
-                          f.repulsiveCoefficient / target.numFields * Mathf.Pow(fieldDiff.magnitude, f.repulsiveExponent);
-                //repulsivePotential += Vector3.Cross(direction,Vector3.up) * target.mass / 40 * target.length / 20 *
-                         //f.repulsiveCoefficient / target.numFields * Mathf.Pow(fieldDiff.magnitude, f.repulsiveExponent);
-            }        
+                bool add = true;
+                UnitAI targetAi = p.target.gameObject.GetComponent<UnitAI>();
+
+                if (targetAi.commands.Count > 0 && targetAi.commands[0] is Follow && targetAi.commands[0].targetEntity == entity)
+                    add = false;
+
+                if (!p.target.underway && add)
+                {
+                    if (p.distance[i] < p.ownship.potentialDistanceThreshold)
+                    {
+                        repulsivePotential += p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
+                            p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
+                    }
+                }
+                else
+                {
+                    if (p.distance[i] < p.ownship.potentialDistanceThreshold && add)
+                    {
+                        if (i != p.target.numFields - 1)
+                        {
+                            repulsivePotential += p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
+                                p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
+                        }
+                        else
+                        {
+                            repulsivePotential += p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
+                                p.target.repulsiveCoefficient / 2 * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
+                        }
+                    }
+                }
+            }
+
+            //repulsivePotential += p.diff;
         }
         //repulsivePotential *= repulsiveCoefficient * Mathf.Pow(repulsivePotential.magnitude, repulsiveExponent);
         attractivePotential = movePosition - entity.position;
@@ -86,7 +99,10 @@ public class Move : Command
         potentialSum = attractivePotential - repulsivePotential;
 
         Vector3 distance = movePosition - entity.position;
-        float angDiff = Vector3.Angle(repulsivePotential, attractivePotential);        
+        float angDiff = Vector3.Angle(repulsivePotential, attractivePotential);
+        //if (entity.showPot)
+        //Debug.Log(distance.magnitude);
+
 
         dh = Utils.Degrees360(Mathf.Rad2Deg * Mathf.Atan2(potentialSum.x, potentialSum.z));
 

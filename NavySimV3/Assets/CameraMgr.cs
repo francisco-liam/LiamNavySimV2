@@ -27,32 +27,21 @@ public class CameraMgr : MonoBehaviour
     public Vector3 currentYawEulerAngles = Vector3.zero;
     public Vector3 currentPitchEulerAngles = Vector3.zero;
 
-    public float deltaTime;
-    bool spedUp = false;
     // Update is called once per frame
     void Update()
     {
-        if (!spedUp)
-            deltaTime = Time.deltaTime;
-
-        else
-            deltaTime = Time.deltaTime / ControlMgr.inst.timeFactor;
-            
-        if(Input.GetKeyUp(KeyCode.T))
-            spedUp = !spedUp;
-
         if (Input.GetKey(KeyCode.W))
-            YawNode.transform.Translate(Vector3.forward * deltaTime * cameraMoveSpeed);
+            YawNode.transform.Translate(Vector3.forward * Time.deltaTime * cameraMoveSpeed);
         if (Input.GetKey(KeyCode.S))
-            YawNode.transform.Translate(Vector3.back * deltaTime * cameraMoveSpeed);
+            YawNode.transform.Translate(Vector3.back * Time.deltaTime * cameraMoveSpeed);
         if (Input.GetKey(KeyCode.A))
-            YawNode.transform.Translate(Vector3.left * deltaTime * cameraMoveSpeed);
+            YawNode.transform.Translate(Vector3.left * Time.deltaTime * cameraMoveSpeed);
         if (Input.GetKey(KeyCode.D))
-            YawNode.transform.Translate(Vector3.right * deltaTime * cameraMoveSpeed);
+            YawNode.transform.Translate(Vector3.right * Time.deltaTime * cameraMoveSpeed);
         if (Input.GetKey(KeyCode.R))
-            YawNode.transform.Translate(Vector3.up * deltaTime * cameraMoveSpeed);
+            YawNode.transform.Translate(Vector3.up * Time.deltaTime * cameraMoveSpeed);
         if (Input.GetKey(KeyCode.F))
-            YawNode.transform.Translate(Vector3.down * deltaTime * cameraMoveSpeed);
+            YawNode.transform.Translate(Vector3.down * Time.deltaTime * cameraMoveSpeed);
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -71,16 +60,16 @@ public class CameraMgr : MonoBehaviour
 
         currentYawEulerAngles = YawNode.transform.localEulerAngles;
         if (Input.GetKey(KeyCode.Q))
-            currentYawEulerAngles.y -= cameraTurnRate * deltaTime;
+            currentYawEulerAngles.y -= cameraTurnRate * Time.deltaTime;
         if (Input.GetKey(KeyCode.E))
-            currentYawEulerAngles.y += cameraTurnRate * deltaTime;
+            currentYawEulerAngles.y += cameraTurnRate * Time.deltaTime;
         YawNode.transform.localEulerAngles = currentYawEulerAngles;
 
         currentPitchEulerAngles = PitchNode.transform.localEulerAngles;
         if (Input.GetKey(KeyCode.Z))
-            currentPitchEulerAngles.x -= cameraTurnRate * deltaTime;
+            currentPitchEulerAngles.x -= cameraTurnRate * Time.deltaTime;
         if (Input.GetKey(KeyCode.X))
-            currentPitchEulerAngles.x += cameraTurnRate * deltaTime;
+            currentPitchEulerAngles.x += cameraTurnRate * Time.deltaTime;
         PitchNode.transform.localEulerAngles = currentPitchEulerAngles;
 
         if (Input.GetKeyUp(KeyCode.C)) {

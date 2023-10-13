@@ -64,6 +64,7 @@ public class Entity381 : MonoBehaviour
 
     public int numBackFields;
     public int numFrontFields;
+    public List<PotentialField> fields;
     public bool showPot = false;
 
     public EntitySize entitySize;
@@ -80,6 +81,8 @@ public class Entity381 : MonoBehaviour
         cameraRig = transform.Find("CameraRig").gameObject;
         selectionCircle = transform.Find("Decorations").Find("SelectionCylinder").gameObject;
         front = transform.Find("Front").transform.position;
+        
+        /*
         if(entitySize == EntitySize.Small)
         {
             numBackFields = 0;
@@ -98,10 +101,12 @@ public class Entity381 : MonoBehaviour
             numFrontFields = 2;
             numFields = 5;
         }
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 }

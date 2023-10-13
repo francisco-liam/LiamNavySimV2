@@ -40,10 +40,10 @@ public class EntityMgr : MonoBehaviour
     public void ResetEntities()
     {
         int count = entities.Count;
-        for(int i=9; i<count; i++)
+        for(int i=0; i<count; i++)
         {
-            Entity381 ent = entities[9];
-            entities.RemoveAt(9);
+            Entity381 ent = entities[0];
+            entities.RemoveAt(0);
             Destroy(ent.gameObject);
         }
         DistanceMgr.inst.Initialize();

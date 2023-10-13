@@ -20,9 +20,9 @@ public class OrientedPhysics : MonoBehaviour
         if(Utils.ApproximatelyEqual(entity.speed, entity.desiredSpeed)) {
             ;
         } else if(entity.speed < entity.desiredSpeed) {
-            entity.speed = entity.speed + entity.acceleration * Time.deltaTime;
+            entity.speed = entity.speed + entity.acceleration * Time.deltaTime * ControlMgr.inst.GameSpeed;
         } else if (entity.speed > entity.desiredSpeed) {
-            entity.speed = entity.speed - entity.acceleration * Time.deltaTime;
+            entity.speed = entity.speed - entity.acceleration * Time.deltaTime * ControlMgr.inst.GameSpeed;
         }
         entity.speed = Utils.Clamp(entity.speed, entity.minSpeed, entity.maxSpeed);
 
@@ -30,9 +30,9 @@ public class OrientedPhysics : MonoBehaviour
         if (Utils.ApproximatelyEqual(entity.heading, entity.desiredHeading)) {
             ;
         } else if (Utils.AngleDiffPosNeg(entity.desiredHeading, entity.heading) > 0) {
-            entity.heading += entity.turnRate * Time.deltaTime;
+            entity.heading += entity.turnRate * Time.deltaTime * ControlMgr.inst.GameSpeed;
         } else if (Utils.AngleDiffPosNeg(entity.desiredHeading, entity.heading) < 0) {
-            entity.heading -= entity.turnRate * Time.deltaTime;
+            entity.heading -= entity.turnRate * Time.deltaTime * ControlMgr.inst.GameSpeed;
         }
         entity.heading = Utils.Degrees360(entity.heading);
         //
@@ -40,7 +40,7 @@ public class OrientedPhysics : MonoBehaviour
         entity.velocity.y = 0;
         entity.velocity.z = Mathf.Cos(entity.heading * Mathf.Deg2Rad) * entity.speed;
 
-        entity.position = entity.position + entity.velocity * Time.deltaTime;
+        entity.position = entity.position + entity.velocity * Time.deltaTime * ControlMgr.inst.GameSpeed;
         transform.localPosition = entity.position;
 
         eulerRotation.y = entity.heading;

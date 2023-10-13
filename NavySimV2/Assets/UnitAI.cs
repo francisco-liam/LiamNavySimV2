@@ -106,6 +106,7 @@ public class UnitAI : MonoBehaviour
             //Moveposition never changes
         }
 
+        
         //potential fields lines
         if(!(current is Intercept) && AIMgr.inst.isPotentialFieldsMovement){ 
             Move m = current as Move;
@@ -118,6 +119,7 @@ public class UnitAI : MonoBehaviour
             m.potentialLine.SetPosition(1, entity.position + newpos);
             m.potentialLine.gameObject.SetActive(entity.isSelected);
         }
+        
 
 
     }

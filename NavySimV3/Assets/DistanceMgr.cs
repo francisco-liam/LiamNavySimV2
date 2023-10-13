@@ -10,21 +10,9 @@ public class Potential
     public Entity381 target;
 
     public List<float> distance = new List<float>(new float[15]);
-    //
-    public float frontDistance;
-    public float backDistance;
-    //
     public List<Vector3> diff = new List<Vector3>(new Vector3[15]);
-    //
-    public Vector3 frontDiff;
-    public Vector3 backDiff;
-    //
     public Vector3 relativeVelocity; //Your vel relative to me (yourVel - myVel)
     public List<Vector3> direction = new List<Vector3>(new Vector3[15]); //normalized diff
-    //
-    public Vector3 frontDirection;
-    public Vector3 backDirection;
-    //
     public float relativeBearingDegrees;
     public CPAInfo cpaInfo;
     public float targetAngle;
@@ -91,7 +79,7 @@ public class CPAInfo
         targetPosition = target.position + target.velocity * time;
         range = Vector3.Distance(ownShipPosition, targetPosition);
 
-        diff = targetPosition - ownShipPosition;
+        diff = target.position - ownship.front;
         targetAbsBearing = Utils.Degrees360(Utils.VectorToHeadingDegrees(diff));
         targetRelativeBearing = Utils.Degrees360(Utils.AngleDiffPosNeg(targetAbsBearing, ownship.heading));
         targetAngle = Utils.Degrees360(targetAbsBearing + 180 - target.heading);
@@ -178,81 +166,43 @@ public class DistanceMgr : MonoBehaviour
         Entity381 ent1, ent2;
         //for (int i = 0; i < EntityMgr.inst.entities.Count - 1; i++)
         //{
-            int i = index;
+        int i = index;
             
-            ent1 = EntityMgr.inst.entities[i];
-            if (ent1 == SelectionMgr.inst.selectedEntity)
-                selectedEntityPotentials = potentialsList[i];
-            //don't do diagonal
-            for (int j = i + 1; j < EntityMgr.inst.entities.Count; j++)
+        ent1 = EntityMgr.inst.entities[i];
+        if (ent1 == SelectionMgr.inst.selectedEntity)
+            selectedEntityPotentials = potentialsList[i];
+        //don't do diagonal
+        for (int j = i + 1; j < EntityMgr.inst.entities.Count; j++)
+        {
+            ent2 = EntityMgr.inst.entities[j];
+
+            p1 = potentials2D[i, j];
+            p2 = potentials2D[j, i];
+
+            //p1
+            for (int k = 0; k < p1.target.numFields; k++)
             {
-                ent2 = EntityMgr.inst.entities[j];
+                p1.diff[k] = p1.target.fieldPos[k] - p1.ownship.front;
+                p1.distance[k] = p1.diff[k].magnitude;
+                p1.direction[k] = p1.diff[k].normalized;
+            }
+            p1.cpaInfo.ReCompute();
+            p1.relativeVelocity = p1.cpaInfo.relativeVelocity;
+            p1.targetAngle = p1.cpaInfo.targetAngle;
+            p1.relativeBearingDegrees = p1.cpaInfo.targetRelativeBearing;
 
-                p1 = potentials2D[i, j];
-                p2 = potentials2D[j, i];
+            //p2
+            for (int k = 0; k < p2.target.numFields; k++)
+            {
+                p2.diff[k] = p2.target.fieldPos[k] - p2.ownship.front;
+                p2.distance[k] = p2.diff[k].magnitude;
+                p2.direction[k] = p2.diff[k].normalized;
+            }
+            p2.cpaInfo.ReCompute();
+            p2.relativeVelocity = p2.cpaInfo.relativeVelocity;
+            p2.targetAngle = p2.cpaInfo.targetAngle;
+            p2.relativeBearingDegrees = p2.cpaInfo.targetRelativeBearing;
 
-                Vector3 p1ShiftVec = new Vector3();
-                p1ShiftVec.x = (Mathf.Sin(p1.target.heading * Mathf.Deg2Rad));
-                p1ShiftVec.y = 0;
-                p1ShiftVec.z = (Mathf.Cos(p1.target.heading * Mathf.Deg2Rad));
-
-                Vector3 p1ShiftVecRight = new Vector3(p1ShiftVec.z, 0, -p1ShiftVec.x);
-                Vector3 p1ShiftVecLeft = -p1ShiftVecRight;
-
-                Vector3 p2ShiftVec = new Vector3();
-                p2ShiftVec.x = (Mathf.Sin(p2.target.heading * Mathf.Deg2Rad));
-                p2ShiftVec.y = 0;
-                p2ShiftVec.z = (Mathf.Cos(p2.target.heading * Mathf.Deg2Rad));
-
-                Vector3 p2ShiftVecRight = new Vector3(p2ShiftVec.z, 0, -p2ShiftVec.x);
-                Vector3 p2ShiftVecLeft = -p2ShiftVecRight;
-
-                //p1
-                for (int k = 0; k < p1.target.numFields; k++)
-                {
-                    if(p1.target.numFields > 1)
-                        p1.diff[k] = ((p1.target.position - p1ShiftVec.normalized * p1.target.length / 2) + (k / (p1.target.numFields - 1.0f) * p1ShiftVec.normalized * p1.target.length)) - (p1.ownship.position + (p2ShiftVec.normalized * p1.ownship.length / 2));
-                    else
-                        p1.diff[k] = p1.target.position - p1.ownship.position;
-                    p1.distance[k] = p1.diff[k].magnitude;
-                    p1.direction[k] = p1.diff[k].normalized;
-                }
-                p1.cpaInfo.ReCompute();
-                p1.relativeVelocity = p1.cpaInfo.relativeVelocity;
-                p1.targetAngle = p1.cpaInfo.targetAngle;
-                p1.relativeBearingDegrees = p1.cpaInfo.targetRelativeBearing;
-
-                p1.frontDiff = (p1.target.position + (p1ShiftVec.normalized * p1.target.length / 2) + (p1ShiftVec.normalized * 20) + (p1ShiftVecRight.normalized*20)) - (p1.ownship.position + (p2ShiftVec.normalized * p1.ownship.length / 2));
-                p1.frontDistance = p1.frontDiff.magnitude;
-                p1.frontDirection = p1.frontDiff.normalized;
-
-                p1.backDiff = (p1.target.position - (p1ShiftVec.normalized * p1.target.length / 2) - (p1ShiftVec.normalized * 20) + (p1ShiftVecLeft.normalized * 20)) - (p1.ownship.position + (p2ShiftVec.normalized * p1.ownship.length / 2));
-                p1.backDistance = p1.backDiff.magnitude;
-                p1.backDirection = p1.backDiff.normalized;
-
-
-                //p2
-                for (int k = 0; k < p2.target.numFields; k++)
-                {
-                    if (p2.target.numFields > 1)
-                        p2.diff[k] = ((p2.target.position - p2ShiftVec.normalized * p2.target.length / 2) + (k / ((p2.target.numFields - 1.0f)) * p2ShiftVec.normalized * p2.target.length)) - (p2.ownship.position + (p1ShiftVec.normalized * p2.ownship.length / 2));
-                    else
-                        p2.diff[k] = p2.target.position - p2.ownship.position;
-                    p2.distance[k] = p2.diff[k].magnitude;
-                    p2.direction[k] = p2.diff[k].normalized;
-                }
-                p2.cpaInfo.ReCompute();
-                p2.relativeVelocity = p2.cpaInfo.relativeVelocity;
-                p2.targetAngle = p2.cpaInfo.targetAngle;
-                p2.relativeBearingDegrees = p2.cpaInfo.targetRelativeBearing;
-
-                p2.frontDiff = (p2.target.position + (p2ShiftVec.normalized * p2.target.length / 2) + (p2ShiftVec.normalized * 20) + (p2ShiftVecRight.normalized * 20)) - (p2.ownship.position + (p1ShiftVec.normalized * p2.ownship.length / 2));
-                p2.frontDistance = p2.frontDiff.magnitude;
-                p2.frontDirection = p2.frontDiff.normalized;
-
-                p2.backDiff = (p2.target.position - (p2ShiftVec.normalized * p2.target.length / 2) - (p2ShiftVec.normalized * 20) + (p2ShiftVecLeft.normalized * 20)) - (p2.ownship.position + (p1ShiftVec.normalized * p2.ownship.length / 2));
-                p2.backDistance = p2.backDiff.magnitude;
-                p2.backDirection = p2.backDiff.normalized;
         }
         //}
     }

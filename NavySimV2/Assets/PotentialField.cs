@@ -20,6 +20,7 @@ public class PotentialField : MonoBehaviour
         {
             repulsiveCoefficient = entity.repulsiveCoefficient;
             repulsiveExponent = entity.repulsiveExponent;
+            entity.fields.Add(this);
         }
     }
 

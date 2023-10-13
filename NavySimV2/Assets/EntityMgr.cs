@@ -35,7 +35,7 @@ public class EntityMgr : MonoBehaviour
                 entities.Add(entity);
             }
         }
-
+        /*
         if(entity.entitySize == EntitySize.Small)
         {
             entity.repulsiveCoefficient = smallField.repulsiveCoefficient;
@@ -60,7 +60,7 @@ public class EntityMgr : MonoBehaviour
             entity.attractiveExponent = largeField.attractiveExponent;
             entity.potentialDistanceThreshold = largeField.potentialThreshold;
         }
-
+        */
         return entity;
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,6 +61,10 @@ public class Entity381 : MonoBehaviour
     public float attractionCoefficient = 22500;
     public float attractiveExponent = -1;
     public int numFields = 5;
+    public Vector3[] fieldPos;
+    public float xOffset;
+    public float yOffset;
+    public Vector3 front;
     public bool showPot = false;
 
     public EntitySize entitySize;
@@ -75,10 +80,30 @@ public class Entity381 : MonoBehaviour
     {
         cameraRig = transform.Find("CameraRig").gameObject;
         selectionCircle = transform.Find("Decorations").Find("SelectionCylinder").gameObject;
+
+        fieldPos = new Vector3[numFields];
+        numFields = 1;
+
+        Vector3 shiftVec = new Vector3();
+        shiftVec.x = (Mathf.Sin(heading * Mathf.Deg2Rad));
+        shiftVec.y = 0;
+        shiftVec.z = (Mathf.Cos(heading * Mathf.Deg2Rad));
+        Vector3 shiftVecRight = new Vector3(shiftVec.z, 0, -shiftVec.x);
+        
+        fieldPos[0] = position + shiftVec * yOffset + shiftVecRight * xOffset;
+        front = position + (shiftVec.normalized * length / 2);
     }
 
     // Update is called once per frame
     void Update()
     {
-    }
+        Vector3 shiftVec = new Vector3();
+        shiftVec.x = (Mathf.Sin(heading * Mathf.Deg2Rad));
+        shiftVec.y = 0;
+        shiftVec.z = (Mathf.Cos(heading * Mathf.Deg2Rad));
+        Vector3 shiftVecRight = new Vector3(shiftVec.z, 0, -shiftVec.x);
+
+        fieldPos[0] = position + shiftVec*yOffset + shiftVecRight*xOffset;
+        front = position + (shiftVec.normalized * length / 2);
+}
 }

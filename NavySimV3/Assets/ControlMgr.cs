@@ -19,6 +19,7 @@ public class ControlMgr : MonoBehaviour
     public float deltaSpeed = 1;
     public float deltaHeading = 2;
     public float timeFactor = 10f;
+    public float GameSpeed = 1;
 
     // Update is called once per frame
     void Update()
@@ -40,10 +41,18 @@ public class ControlMgr : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.T))
         {
-            if (Time.timeScale == 1.0f)
-                Time.timeScale = timeFactor;
+            if (GameSpeed == 1.0f)
+                GameSpeed = timeFactor;
             else
-                Time.timeScale = 1.0f;
+                GameSpeed = 1.0f;
+        }
+
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            if (GameSpeed == 1.0f)
+                GameSpeed = 0;
+            else
+                GameSpeed = 1.0f;
         }
 
     }

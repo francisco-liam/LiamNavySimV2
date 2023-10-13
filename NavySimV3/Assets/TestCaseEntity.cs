@@ -61,8 +61,8 @@ public class TestCaseEntity : MonoBehaviour
 
         if (running)
         {
-            travelTime += Time.deltaTime;
-            travelDistance += Time.deltaTime * ownEnt.speed;
+            travelTime += Time.deltaTime * ControlMgr.inst.GameSpeed;
+            travelDistance += Time.deltaTime * ControlMgr.inst.GameSpeed * ownEnt.speed;
         }
 
         if(testCase != TestCase.Two && testCase != TestCase.Three && testCase != TestCase.Four)
@@ -152,7 +152,7 @@ public class TestCaseEntity : MonoBehaviour
     {
         if (running)
         {
-            collisionsTime += Time.deltaTime;
+            collisionsTime += Time.deltaTime * ControlMgr.inst.GameSpeed;
         }
     }
 }

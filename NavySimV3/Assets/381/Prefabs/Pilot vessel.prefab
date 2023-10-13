@@ -140,12 +140,16 @@ MonoBehaviour:
   minSpeed: 0
   mass: 40
   length: 20
-  potentialDistanceThreshold: 80
-  repulsiveCoefficient: 10000
+  potentialDistanceThreshold: 1000
+  repulsiveCoefficient: 13000
   repulsiveExponent: -2
   attractionCoefficient: 14000
   attractiveExponent: -1.15
   numFields: 1
+  fieldPos: []
+  xOffset: 0
+  yOffset: 0
+  front: {x: 0, y: 0, z: 0}
   showPot: 0
   entitySize: 1
   entityType: 5

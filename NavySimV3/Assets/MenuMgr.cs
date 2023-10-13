@@ -49,6 +49,7 @@ public class MenuMgr : MonoBehaviour
         EntityMgr.inst.ResetEntities();
         LineMgr.inst.DestroyAllLines();
         GameMgr.inst.testCases.GetComponent<TestCases>().enabled = false;
+        GraphMgr.inst.DeleteAllGraphs();
     }
 
 

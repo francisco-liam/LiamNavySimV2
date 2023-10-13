@@ -37,6 +37,9 @@ public class TestCases : MonoBehaviour
     public EntityType entityType6;
     public EntityType entityType7;
 
+    [Header("Graph Plane")]
+    public GameObject graphPlane;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -67,6 +70,9 @@ public class TestCases : MonoBehaviour
         Entity381 ent0 = EntityMgr.inst.CreateEntity(entityType3, new Vector3(-1500, 0, -1500), Vector3.zero);
         Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType4, new Vector3(-1300, 0, -1500), Vector3.zero);
         Entity381 ent2 = EntityMgr.inst.CreateEntity(entityType5, new Vector3(-1100, 0, -1500), Vector3.zero);
+
+        //GameObject plane = Instantiate(graphPlane);
+
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 5; j++)
@@ -87,6 +93,9 @@ public class TestCases : MonoBehaviour
         Entity381 ent0 = EntityMgr.inst.CreateEntity(entityType3, new Vector3(2500, 0, -1500), Vector3.zero);
         Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType4, new Vector3(2300, 0, -1500), Vector3.zero);
         Entity381 ent2 = EntityMgr.inst.CreateEntity(entityType5, new Vector3(2100, 0, -1500), Vector3.zero);
+
+        //GameObject plane = Instantiate(graphPlane, new Vector3(2100, 0, -1500), Quaternion.identity, ent2.transform);
+        //plane.transform.position += new Vector3(-200, 0, -300);
 
         ent0.desiredSpeed = test2Speed;
         ent1.desiredSpeed = test2Speed;
@@ -110,24 +119,24 @@ public class TestCases : MonoBehaviour
     public void TestCase5()
     {
         GameObject camera = GameObject.Find("YawMoveNode");
-        camera.transform.localPosition = new Vector3(2500, 0, 2000);
+        camera.transform.localPosition = new Vector3(2500, 0, 2800);
         camera.transform.localRotation = Quaternion.identity;
         camera.transform.Rotate(0, 270, 0);
 
-        Entity381 ent0 = EntityMgr.inst.CreateEntity(entityType6, new Vector3(2000, 0, 1200), Vector3.zero);
+        Entity381 ent0 = EntityMgr.inst.CreateEntity(entityType6, new Vector3(2000, 0, 2000), Vector3.zero);
         ent0.desiredHeading = 270f;
         ent0.heading = 270f;
         ent0.gameObject.AddComponent<TestCaseEntity>();
         ent0.GetComponent<TestCaseEntity>().testCase = TestCase.Five;
-        ent0.GetComponent<TestCaseEntity>().move = new Vector3(-1000, 0, 1200);
+        ent0.GetComponent<TestCaseEntity>().move = new Vector3(-1000, 0, 2000);
         ent0.GetComponent<TestCaseEntity>().added = false;
 
 
-        Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType7, new Vector3(1000, 0, 1200), Vector3.zero);
+        Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType7, new Vector3(1000, 0, 2000), Vector3.zero);
         ent1.desiredHeading = 90f;
         ent1.heading = 90f;
         ent1.gameObject.AddComponent<TestCaseEntity>();
-        ent1.GetComponent<TestCaseEntity>().move = new Vector3(4000, 0, 1200);
+        ent1.GetComponent<TestCaseEntity>().move = new Vector3(4000, 0, 2000);
         ent1.GetComponent<TestCaseEntity>().testCase = TestCase.Five;
         ent1.GetComponent<TestCaseEntity>().added = false;
 
@@ -137,25 +146,25 @@ public class TestCases : MonoBehaviour
     public void TestCase6()
     {
         GameObject camera = GameObject.Find("YawMoveNode");
-        camera.transform.localPosition = new Vector3(2500, 0, 2000);
+        camera.transform.localPosition = new Vector3(2500, 0, 2800);
         camera.transform.localRotation = Quaternion.identity;
         camera.transform.Rotate(0, 270, 0);
 
-        Entity381 ent0 = EntityMgr.inst.CreateEntity(entityType6, new Vector3(2000, 0, 1200), Vector3.zero);
+        Entity381 ent0 = EntityMgr.inst.CreateEntity(entityType6, new Vector3(2000, 0, 2000), Vector3.zero);
         ent0.desiredHeading = 270f;
         ent0.heading = 270f;
         ent0.gameObject.AddComponent<TestCaseEntity>();
         ent0.GetComponent<TestCaseEntity>().testCase = TestCase.Six;
-        ent0.GetComponent<TestCaseEntity>().move = new Vector3(-10000, 0, 1200);
+        ent0.GetComponent<TestCaseEntity>().move = new Vector3(-10000, 0, 2000);
         ent0.GetComponent<TestCaseEntity>().added = false;
 
 
-        Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType7, new Vector3(1000, 0, 1200), Vector3.zero);
+        Entity381 ent1 = EntityMgr.inst.CreateEntity(entityType7, new Vector3(1000, 0, 2000), Vector3.zero);
         ent1.desiredHeading = 270f;
         ent1.heading = 270f;
         ent1.gameObject.AddComponent<TestCaseEntity>();
         ent1.maxSpeed = 3f;
-        ent1.GetComponent<TestCaseEntity>().move = new Vector3(-10000, 0, 1200);
+        ent1.GetComponent<TestCaseEntity>().move = new Vector3(-10000, 0, 2000);
         ent1.GetComponent<TestCaseEntity>().testCase = TestCase.Six;
         ent1.GetComponent<TestCaseEntity>().added = false;
 

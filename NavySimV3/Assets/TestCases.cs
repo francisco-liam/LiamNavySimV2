@@ -163,7 +163,7 @@ public class TestCases : MonoBehaviour
         ent1.desiredHeading = 270f;
         ent1.heading = 270f;
         ent1.gameObject.AddComponent<TestCaseEntity>();
-        ent1.maxSpeed = 3f;
+        ent1.maxSpeed = 6f;
         ent1.GetComponent<TestCaseEntity>().move = new Vector3(-10000, 0, 2000);
         ent1.GetComponent<TestCaseEntity>().testCase = TestCase.Six;
         ent1.GetComponent<TestCaseEntity>().added = false;

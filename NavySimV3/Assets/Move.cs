@@ -56,6 +56,8 @@ public class Move : Command
             p = DistanceMgr.inst.GetPotential(entity, ent);
             for(int i =0; i < p.target.numFields; i++)
             {
+
+                float coeff = SituationCases(p);
                 bool add = true;
                 UnitAI targetAi = p.target.gameObject.GetComponent<UnitAI>();
 
@@ -76,12 +78,12 @@ public class Move : Command
                     {
                         if (i != p.target.numFields - 1)
                         {
-                            repulsivePotential += (0.3f*Mathf.Cos(p.targetAngle*Mathf.Deg2Rad)+1) *  p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
+                            repulsivePotential +=  coeff * /*(0.3f*Mathf.Cos(p.targetAngle*Mathf.Deg2Rad)+1) **/  p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
                                 p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
                         }
                         else
                         {
-                            repulsivePotential += (0.3f*Mathf.Cos(p.targetAngle*Mathf.Deg2Rad) + 1) * p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
+                            repulsivePotential += coeff * /*(0.3f*Mathf.Cos(p.targetAngle*Mathf.Deg2Rad) + 1) **/ p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
                                 p.target.repulsiveCoefficient / 2 * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
                         }
                     }
@@ -136,11 +138,18 @@ public class Move : Command
     public float cosValue;
     public float ds;
 
-    float SituationCases( )
+    float SituationCases(Potential p)
     {
+        float coeff = 1;
+
+        if (Utils.isBetween(90, 180, p.relativeBearingDegrees) && Utils.isBetween(270, 0, p.targetAngle))
+            coeff = 0;
+        if (Utils.isBetween(210, 310, p.relativeBearingDegrees) && Utils.isBetween(300, 40, p.targetAngle))
+            coeff = 0;
+        if (p.cpaInfo.time == 0)
+            coeff = 0;
         
-        
-        return 0;
+        return coeff;
     }
 
     public float doneDistanceSq = 1000;

@@ -45,6 +45,13 @@ public static class Utils {
         return Mathf.Atan2(v.x, v.z) * Mathf.Rad2Deg;
     }
 
+    public static bool isBetween(float start, float end, float mid)
+    {
+        end = (end - start) < 0.0f ? end - start + 360.0f : end - start;
+        mid = (mid - start) < 0.0f ? mid - start + 360.0f : mid - start;
+        return (mid < end);
+    }
+
     public static void CPA(Entity381 e1, Entity381 e2)
     {
 

@@ -50,7 +50,7 @@ public class Entity381 : MonoBehaviour
     public float minSpeed;
     public float mass;
     public float length;
-
+    
     //------------------------------
     // potential field variables
     //------------------------------

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
+//using UnityEngine.Experimental.PlayerLoop;
 using Color = UnityEngine.Color;
 
 
@@ -162,7 +162,7 @@ public class GraphPlane : MonoBehaviour
         Vector3 repulsivePotential;
         Vector3 attractivePotential = Vector3.zero;
         float magnitude;
-        Vector3 potentialSum = Vector3.zero;
+        float potentialMag;
 
         Potential p;
         repulsivePotential = Vector3.zero;
@@ -172,6 +172,8 @@ public class GraphPlane : MonoBehaviour
             p = DistanceMgr.inst.GetPotential(entity, ent);
             foreach (Vector3 fp in ent.fieldPos)
             {
+                float coeff = SituationCases(p);
+
                 Vector3 diff = fp - position;
                 float dist = diff.magnitude;
                 Vector3 direc = diff.normalized;
@@ -190,12 +192,12 @@ public class GraphPlane : MonoBehaviour
                     {
                         if (fp != ent.front)
                         {
-                            repulsivePotential += (0.3f * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) + 1) * direc * ent.mass / 40 * ent.length / 20 *
+                            repulsivePotential += coeff * /*(0.3f * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) + 1) **/ direc * ent.mass / 40 * ent.length / 20 *
                                 ent.repulsiveCoefficient / ent.numFields * Mathf.Pow(dist, ent.repulsiveExponent);
                         }
                         else
                         {
-                            repulsivePotential += (0.3f * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) + 1) * direc * ent.mass / 40 * ent.length / 20 *
+                            repulsivePotential += coeff * /*(0.3f * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) + 1) **/ direc * ent.mass / 40 * ent.length / 20 *
                                 ent.repulsiveCoefficient / 2 * Mathf.Pow(dist, ent.repulsiveExponent);
                         }
                     }
@@ -206,30 +208,52 @@ public class GraphPlane : MonoBehaviour
         
         if(entity.transform.GetComponent<UnitAI>().commands.Count != 0)
         {
-            attractivePotential = entity.transform.GetComponent<UnitAI>().commands[0].movePosition - entity.position;
+            attractivePotential = entity.transform.GetComponent<UnitAI>().commands[0].movePosition - position;
             Vector3 tmp = attractivePotential.normalized;
             attractivePotential = tmp *
                 entity.attractionCoefficient * Mathf.Pow(attractivePotential.magnitude, entity.attractiveExponent);
         }
 
-        potentialSum = attractivePotential - repulsivePotential;
+        potentialMag = repulsivePotential.magnitude - attractivePotential.magnitude;
 
-        if (attractivePotential != Vector3.zero)
-            magnitude = Utils.Clamp(potentialSum.magnitude, 0, GraphMgr.inst.maxMag);
-        else
-            magnitude = Utils.Clamp(repulsivePotential.magnitude, 0, GraphMgr.inst.maxMag);
-        
+        magnitude = Utils.Clamp(potentialMag, -GraphMgr.inst.maxMag, GraphMgr.inst.maxMag);
+
         return magnitude;
         
+    }
+
+    float SituationCases(Potential p)
+    {
+        float coeff = 1;
+
+        if (Utils.isBetween(90, 180, p.relativeBearingDegrees) && Utils.isBetween(270, 0, p.targetAngle))
+            coeff = 0;
+        if (Utils.isBetween(210, 310, p.relativeBearingDegrees) && Utils.isBetween(300, 40, p.targetAngle))
+            coeff = 0;
+        if (p.cpaInfo.time == 0)
+            coeff = 0;
+
+        return coeff;
     }
 
     Color[] ChangeColors()
     {
         Color[] colors = new Color[vertices.Count];
-        for(int i  = 0; i < vertices.Count; i++)
+        if (entSpecific)
         {
-            colors[i] = Color.Lerp(Color.green, Color.red, vertices[i].y / 400f);
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                colors[i] = Color.Lerp(Color.green, Color.red, (vertices[i].y + 400f) / 800f);
+            }
         }
+        else
+        {
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                colors[i] = Color.Lerp(Color.green, Color.red, vertices[i].y / 400f);
+            }
+        }
+
 
         return colors;
     }

@@ -50,7 +50,7 @@ public class Entity381 : MonoBehaviour
     public float minSpeed;
     public float mass;
     public float length;
-    
+
     //------------------------------
     // potential field variables
     //------------------------------
@@ -58,6 +58,10 @@ public class Entity381 : MonoBehaviour
     public float potentialDistanceThreshold = 500;
     public float repulsiveCoefficient = 1000;
     public float repulsiveExponent = -2.0f;
+    public float taCoefficient;
+    public float taExponent;
+    public float rbCoefficient;
+    public float rbExponent;
     public float attractionCoefficient = 22500;
     public float attractiveExponent = -1;
     public int numFields = 5;
@@ -89,7 +93,7 @@ public class Entity381 : MonoBehaviour
         shiftVec.y = 0;
         shiftVec.z = (Mathf.Cos(heading * Mathf.Deg2Rad));
         Vector3 shiftVecRight = new Vector3(shiftVec.z, 0, -shiftVec.x);
-        
+
         fieldPos[0] = position + shiftVec * yOffset + shiftVecRight * xOffset;
         front = position + (shiftVec.normalized * length / 2);
     }
@@ -103,7 +107,7 @@ public class Entity381 : MonoBehaviour
         shiftVec.z = (Mathf.Cos(heading * Mathf.Deg2Rad));
         Vector3 shiftVecRight = new Vector3(shiftVec.z, 0, -shiftVec.x);
 
-        fieldPos[0] = position + shiftVec*yOffset + shiftVecRight*xOffset;
+        fieldPos[0] = position + shiftVec * yOffset + shiftVecRight * xOffset;
         front = position + (shiftVec.normalized * length / 2);
-}
+    }
 }

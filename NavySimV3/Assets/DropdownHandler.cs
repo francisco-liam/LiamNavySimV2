@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.LowLevel;
 
 public class DropdownHandler : MonoBehaviour
 {
@@ -61,8 +62,10 @@ public class DropdownHandler : MonoBehaviour
             return global::TestCase.Eight;
         else if (val == 8)
             return global::TestCase.Nine;
-        else
+        else if (val == 9)
             return global::TestCase.Ten;
+        else
+            return global::TestCase.Test;
     }
 
     public void ChangeShip(int val)
@@ -87,7 +90,8 @@ public class DropdownHandler : MonoBehaviour
         }
     }
 
-    public void ChangePotCalc(int val){
+    public void ChangePotCalc(int val)
+    {
         if (val == 0)
             DistanceMgr.inst.fraction = 1;
         if (val == 1)

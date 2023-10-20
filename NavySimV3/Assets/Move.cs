@@ -57,7 +57,7 @@ public class Move : Command
             for(int i =0; i < p.target.numFields; i++)
             {
 
-                float coeff = SituationCases(p);
+                //float coeff = SituationCases(p);
                 bool add = true;
                 UnitAI targetAi = p.target.gameObject.GetComponent<UnitAI>();
 
@@ -78,13 +78,17 @@ public class Move : Command
                     {
                         if (i != p.target.numFields - 1)
                         {
-                            repulsivePotential +=  coeff * /*(0.3f*Mathf.Cos(p.targetAngle*Mathf.Deg2Rad)+1) **/  p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
+                            repulsivePotential +=  p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
                                 p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
+                            repulsivePotential += p.direction[i] * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(p.diff[i].magnitude, p.target.taExponent);
+                            repulsivePotential += p.direction[i] * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(p.diff[i].magnitude, p.target.rbExponent);
                         }
                         else
                         {
-                            repulsivePotential += coeff * /*(0.3f*Mathf.Cos(p.targetAngle*Mathf.Deg2Rad) + 1) **/ p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
+                            repulsivePotential += p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
                                 p.target.repulsiveCoefficient / 2 * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
+                            repulsivePotential += p.direction[i] * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(p.diff[i].magnitude, p.target.taExponent);
+                            repulsivePotential += p.direction[i] * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(p.diff[i].magnitude, p.target.rbExponent);
                         }
                     }
                 }

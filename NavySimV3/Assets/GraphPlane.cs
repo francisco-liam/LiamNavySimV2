@@ -8,7 +8,7 @@ using Color = UnityEngine.Color;
 
 
 [RequireComponent(typeof(MeshRenderer))]
-[RequireComponent (typeof(MeshFilter))]
+[RequireComponent(typeof(MeshFilter))]
 public class GraphPlane : MonoBehaviour
 {
     Mesh mesh;
@@ -24,7 +24,7 @@ public class GraphPlane : MonoBehaviour
 
     void Awake()
     {
-        mesh=new Mesh();
+        mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         meshFilter.mesh = mesh;
     }
@@ -32,8 +32,8 @@ public class GraphPlane : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       size = GraphMgr.inst.size;
-       resolution = GraphMgr.inst.resolution;
+        size = GraphMgr.inst.size;
+        resolution = GraphMgr.inst.resolution;
     }
 
     // Update is called once per frame
@@ -56,23 +56,23 @@ public class GraphPlane : MonoBehaviour
         vertices = new List<Vector3>();
         float xPerStep = size.x / resolution;
         float yPerStep = size.y / resolution;
-        for(int y=0; y<resolution+1; y++)
+        for (int y = 0; y < resolution + 1; y++)
         {
-            for(int x=0; x<resolution+1; x++)
+            for (int x = 0; x < resolution + 1; x++)
             {
-                vertices.Add(new Vector3(x*xPerStep, 0, y*yPerStep));
+                vertices.Add(new Vector3(x * xPerStep, 0, y * yPerStep));
             }
         }
 
         triangles = new List<int>();
-        for(int row = 0; row<resolution; row++)
+        for (int row = 0; row < resolution; row++)
         {
-            for(int col = 0; col < resolution; col++)
+            for (int col = 0; col < resolution; col++)
             {
-                int i = (row*resolution) + row + col;
+                int i = (row * resolution) + row + col;
 
                 triangles.Add(i);
-                triangles.Add(i+ resolution + 1);
+                triangles.Add(i + resolution + 1);
                 triangles.Add(i + resolution + 2);
 
                 triangles.Add(i);
@@ -96,15 +96,15 @@ public class GraphPlane : MonoBehaviour
 
     void UpdateHeights()
     {
-        for(int i=0; i<vertices.Count; i++)
+        for (int i = 0; i < vertices.Count; i++)
         {
             Vector3 vertex = vertices[i];
             Vector3 vertexPos = transform.TransformPoint(vertex);
             vertexPos.y = 0;
-            if(!entSpecific)
-                vertex.y = (CalculatePotential(vertexPos)/GraphMgr.inst.maxMag) * 400f;
+            if (!entSpecific)
+                vertex.y = (CalculatePotential(vertexPos) / GraphMgr.inst.maxMag) * 400f;
             else
-                vertex.y = (CalculatePotential(vertexPos, entity)/ GraphMgr.inst.maxMag) * 400;
+                vertex.y = (CalculatePotential(vertexPos, entity) / GraphMgr.inst.maxMag) * 400;
             vertices[i] = vertex;
         }
     }
@@ -158,7 +158,7 @@ public class GraphPlane : MonoBehaviour
 
     float CalculatePotential(Vector3 position, Entity381 entity)
     {
-        
+
         Vector3 repulsivePotential;
         Vector3 attractivePotential = Vector3.zero;
         float magnitude;
@@ -172,7 +172,7 @@ public class GraphPlane : MonoBehaviour
             p = DistanceMgr.inst.GetPotential(entity, ent);
             foreach (Vector3 fp in ent.fieldPos)
             {
-                float coeff = SituationCases(p);
+                //float coeff = SituationCases(p);
 
                 Vector3 diff = fp - position;
                 float dist = diff.magnitude;
@@ -184,6 +184,8 @@ public class GraphPlane : MonoBehaviour
                     {
                         repulsivePotential += direc * ent.mass / 40 * ent.length / 20 *
                            ent.repulsiveCoefficient / ent.numFields * Mathf.Pow(dist, ent.repulsiveExponent);
+                        repulsivePotential += direc * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.taExponent);
+                        repulsivePotential += direc * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.rbExponent);
                     }
                 }
                 else
@@ -192,21 +194,25 @@ public class GraphPlane : MonoBehaviour
                     {
                         if (fp != ent.front)
                         {
-                            repulsivePotential += coeff * /*(0.3f * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) + 1) **/ direc * ent.mass / 40 * ent.length / 20 *
+                            repulsivePotential += direc * ent.mass / 40 * ent.length / 20 *
                                 ent.repulsiveCoefficient / ent.numFields * Mathf.Pow(dist, ent.repulsiveExponent);
+                            repulsivePotential += direc * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.taExponent);
+                            repulsivePotential += direc * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.rbExponent);
                         }
                         else
                         {
-                            repulsivePotential += coeff * /*(0.3f * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) + 1) **/ direc * ent.mass / 40 * ent.length / 20 *
+                            repulsivePotential += direc * ent.mass / 40 * ent.length / 20 *
                                 ent.repulsiveCoefficient / 2 * Mathf.Pow(dist, ent.repulsiveExponent);
+                            repulsivePotential += direc * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.taExponent);
+                            repulsivePotential += direc * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.rbExponent);
                         }
                     }
                 }
             }
 
         }
-        
-        if(entity.transform.GetComponent<UnitAI>().commands.Count != 0)
+
+        if (entity.transform.GetComponent<UnitAI>().commands.Count != 0)
         {
             attractivePotential = entity.transform.GetComponent<UnitAI>().commands[0].movePosition - position;
             Vector3 tmp = attractivePotential.normalized;
@@ -219,7 +225,7 @@ public class GraphPlane : MonoBehaviour
         magnitude = Utils.Clamp(potentialMag, -GraphMgr.inst.maxMag, GraphMgr.inst.maxMag);
 
         return magnitude;
-        
+
     }
 
     float SituationCases(Potential p)

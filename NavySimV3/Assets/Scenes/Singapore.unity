@@ -7333,6 +7333,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Crossing x20
       m_Image: {fileID: 0}
+    - m_Text: Field Testing
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -14072,17 +14074,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a7473ae8bcd5e4e90d0ebe14043031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 0
+  enableParametersChange: 0
+  enablePosAndHeadingChange: 0
   ent1TargetAngle: 0
   ent1RelativeBearing: 0
   ent2TargetAngle: 0
   ent2RelativeBearing: 0
   distance: 0
   TCPA: 0
-  newEnt1XOffset: 0
-  newEnt1YOffset: 0
-  newEnt2XOffset: -300
-  newEnt2YOffset: 550
+  Ent1XOffset: 0
+  Ent1YOffset: 0
+  Ent2XOffset: 0
+  Ent2YOffset: 0
+  Ent1RepulsiveCoefficient: 0
+  Ent1RepulsiveExponent: 0
+  Ent1TargetAngleCoefficient: 0
+  Ent1TargetAngleExponent: 0
+  Ent1RelativeBearingCoefficient: 0
+  Ent1RelativeBearingExponent: 0
+  Ent2RepulsiveCoefficient: 0
+  Ent2RepulsiveExponent: 0
+  Ent2TargetAngleCoefficient: 0
+  Ent2TargetAngleExponent: 0
+  Ent2RelativeBearingCoefficient: 0
+  Ent2RelativeBearingExponent: 0
+  Ent1Position: {x: 0, y: 0, z: 0}
+  Ent1Heading: 0
+  Ent2Position: {x: 0, y: 0, z: 0}
+  Ent2Heading: 0
 --- !u!4 &1790860908
 Transform:
   m_ObjectHideFlags: 0

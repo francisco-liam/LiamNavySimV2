@@ -109,5 +109,8 @@ public class Entity381 : MonoBehaviour
 
         fieldPos[0] = position + shiftVec * yOffset + shiftVecRight * xOffset;
         front = position + (shiftVec.normalized * length / 2);
+
+        position = transform.localPosition;
+        heading = transform.localEulerAngles.y;
     }
 }

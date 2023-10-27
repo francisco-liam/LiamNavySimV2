@@ -27,23 +27,24 @@ public class OrientedPhysics : MonoBehaviour
         entity.speed = Utils.Clamp(entity.speed, entity.minSpeed, entity.maxSpeed);
 
         //heading
+        eulerRotation = transform.localEulerAngles;
         if (Utils.ApproximatelyEqual(entity.heading, entity.desiredHeading)) {
             ;
         } else if (Utils.AngleDiffPosNeg(entity.desiredHeading, entity.heading) > 0) {
-            entity.heading += entity.turnRate * Time.deltaTime * ControlMgr.inst.GameSpeed;
+            eulerRotation.y += entity.turnRate * Time.deltaTime * ControlMgr.inst.GameSpeed;
         } else if (Utils.AngleDiffPosNeg(entity.desiredHeading, entity.heading) < 0) {
-            entity.heading -= entity.turnRate * Time.deltaTime * ControlMgr.inst.GameSpeed;
+            eulerRotation.y -= entity.turnRate * Time.deltaTime * ControlMgr.inst.GameSpeed;
         }
-        entity.heading = Utils.Degrees360(entity.heading);
+        eulerRotation.y = Utils.Degrees360(eulerRotation.y);
+        entity.heading = eulerRotation.y;
         //
         entity.velocity.x = Mathf.Sin(entity.heading * Mathf.Deg2Rad) * entity.speed;
         entity.velocity.y = 0;
         entity.velocity.z = Mathf.Cos(entity.heading * Mathf.Deg2Rad) * entity.speed;
 
-        entity.position = entity.position + entity.velocity * Time.deltaTime * ControlMgr.inst.GameSpeed;
-        transform.localPosition = entity.position;
+        entity.transform.position = entity.transform.position + entity.velocity * Time.deltaTime * ControlMgr.inst.GameSpeed;
+        entity.position = transform.localPosition;
 
-        eulerRotation.y = entity.heading;
         transform.localEulerAngles = eulerRotation;
 
         if(entity.speed > 0)

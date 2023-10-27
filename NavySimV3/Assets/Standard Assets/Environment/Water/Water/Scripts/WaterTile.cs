@@ -8,6 +8,7 @@ namespace UnityStandardAssets.Water
     {
         public PlanarReflection reflection;
         public WaterBase waterBase;
+        public Camera cam;
 
 
         public void Start()

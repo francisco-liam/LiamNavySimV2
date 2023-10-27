@@ -164,6 +164,14 @@ public class GraphPlane : MonoBehaviour
         float magnitude;
         float potentialMag;
 
+        if (entity.transform.GetComponent<UnitAI>().commands.Count != 0)
+        {
+            attractivePotential = entity.transform.GetComponent<UnitAI>().commands[0].movePosition - position;
+            Vector3 tmp = attractivePotential.normalized;
+            attractivePotential = tmp *
+                entity.attractionCoefficient * Mathf.Pow(attractivePotential.magnitude, entity.attractiveExponent);
+        }
+
         Potential p;
         repulsivePotential = Vector3.zero;
         foreach (Entity381 ent in EntityMgr.inst.entities)
@@ -178,14 +186,35 @@ public class GraphPlane : MonoBehaviour
                 float dist = diff.magnitude;
                 Vector3 direc = diff.normalized;
 
+
+                float taCoeff = Mathf.Sin((p.targetAngle) * Mathf.Deg2Rad);
+                float rbCoeff = Mathf.Sin((p.relativeBearingDegrees - 90f) * Mathf.Deg2Rad);
+                Vector3 taField = direc * p.target.taCoefficient * ent.mass / 40 * ent.length / 20 * taCoeff * Mathf.Pow(dist, p.target.taExponent);
+                Vector3 rbField = direc * p.target.rbCoefficient * ent.mass / 40 * ent.length / 20 * rbCoeff * Mathf.Pow(dist, p.target.rbExponent);
+
                 if (!ent.underway)
                 {
                     if (dist < 1000)
                     {
                         repulsivePotential += direc * ent.mass / 40 * ent.length / 20 *
-                           ent.repulsiveCoefficient / ent.numFields * Mathf.Pow(dist, ent.repulsiveExponent);
-                        repulsivePotential += direc * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.taExponent);
-                        repulsivePotential += direc * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.rbExponent);
+                                ent.repulsiveCoefficient / ent.numFields * Mathf.Pow(dist, ent.repulsiveExponent);
+                        if (taCoeff > 0)
+                        {
+                            repulsivePotential += taField;
+                        }
+                        else
+                        {
+                            attractivePotential += taField;
+                        }
+
+                        if (rbCoeff  > 0)
+                        {
+                            repulsivePotential += rbField;
+                        }
+                        else
+                        {
+                            attractivePotential += rbField;
+                        }
                     }
                 }
                 else
@@ -196,28 +225,50 @@ public class GraphPlane : MonoBehaviour
                         {
                             repulsivePotential += direc * ent.mass / 40 * ent.length / 20 *
                                 ent.repulsiveCoefficient / ent.numFields * Mathf.Pow(dist, ent.repulsiveExponent);
-                            repulsivePotential += direc * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.taExponent);
-                            repulsivePotential += direc * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.rbExponent);
+                            if(taCoeff > 0)
+                            {
+                                repulsivePotential += taField;
+                            }
+                            else
+                            {
+                                attractivePotential += taField;
+                            }
+
+                            if(rbCoeff > 0)
+                            {
+                                repulsivePotential += rbField;
+                            }
+                            else
+                            {
+                                attractivePotential += rbField;
+                            }
                         }
                         else
                         {
                             repulsivePotential += direc * ent.mass / 40 * ent.length / 20 *
-                                ent.repulsiveCoefficient / 2 * Mathf.Pow(dist, ent.repulsiveExponent);
-                            repulsivePotential += direc * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.taExponent);
-                            repulsivePotential += direc * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(dist, p.target.rbExponent);
+                                ent.repulsiveCoefficient / ent.numFields * Mathf.Pow(dist, ent.repulsiveExponent);
+                            if (taCoeff > 0)
+                            {
+                                repulsivePotential += taField;
+                            }
+                            else
+                            {
+                                attractivePotential += taField;
+                            }
+
+                            if (rbCoeff > 0)
+                            {
+                                repulsivePotential += rbField;
+                            }
+                            else
+                            {
+                                attractivePotential += rbField;
+                            }
                         }
                     }
                 }
             }
 
-        }
-
-        if (entity.transform.GetComponent<UnitAI>().commands.Count != 0)
-        {
-            attractivePotential = entity.transform.GetComponent<UnitAI>().commands[0].movePosition - position;
-            Vector3 tmp = attractivePotential.normalized;
-            attractivePotential = tmp *
-                entity.attractionCoefficient * Mathf.Pow(attractivePotential.magnitude, entity.attractiveExponent);
         }
 
         potentialMag = repulsivePotential.magnitude - attractivePotential.magnitude;

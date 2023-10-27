@@ -56,6 +56,10 @@ public class Move : Command
             p = DistanceMgr.inst.GetPotential(entity, ent);
             for(int i =0; i < p.target.numFields; i++)
             {
+                float taCoeff = Mathf.Sin((p.targetAngle) * Mathf.Deg2Rad);
+                float rbCoeff = Mathf.Sin((p.relativeBearingDegrees - 90f) * Mathf.Deg2Rad);
+                Vector3 taField = p.direction[i] * p.target.taCoefficient * taCoeff * p.target.mass / 40 * p.target.length / 20 * Mathf.Pow(p.diff[i].magnitude, p.target.taExponent);
+                Vector3 rbField = p.direction[i] * p.target.rbCoefficient * rbCoeff * p.target.mass / 40 * p.target.length / 20 * Mathf.Pow(p.diff[i].magnitude, p.target.rbExponent);
 
                 //float coeff = SituationCases(p);
                 bool add = true;
@@ -80,15 +84,15 @@ public class Move : Command
                         {
                             repulsivePotential +=  p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
                                 p.target.repulsiveCoefficient / p.target.numFields * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
-                            repulsivePotential += p.direction[i] * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(p.diff[i].magnitude, p.target.taExponent);
-                            repulsivePotential += p.direction[i] * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(p.diff[i].magnitude, p.target.rbExponent);
+                            repulsivePotential += taField;
+                            repulsivePotential += rbField;
                         }
                         else
                         {
                             repulsivePotential += p.direction[i] * p.target.mass / 40 * p.target.length / 20 *
                                 p.target.repulsiveCoefficient / 2 * Mathf.Pow(p.diff[i].magnitude, p.target.repulsiveExponent);
-                            repulsivePotential += p.direction[i] * p.target.taCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(p.diff[i].magnitude, p.target.taExponent);
-                            repulsivePotential += p.direction[i] * p.target.rbCoefficient * Mathf.Cos(p.targetAngle * Mathf.Deg2Rad) * Mathf.Pow(p.diff[i].magnitude, p.target.rbExponent);
+                            repulsivePotential += taField;
+                            repulsivePotential += rbField;
                         }
                     }
                 }

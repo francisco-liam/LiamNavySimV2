@@ -63,7 +63,7 @@ public class FieldDebugger : MonoBehaviour
     {
 #if UNITY_EDITOR
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 1000;
 #endif
     }
 

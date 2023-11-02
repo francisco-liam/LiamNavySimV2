@@ -2,10 +2,33 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 //using UnityEngine.Experimental.PlayerLoop;
 using Color = UnityEngine.Color;
 
+
+public struct ShipData
+{
+    public float mass;
+    public float length;
+    public float attractionCoefficient;
+    public float attractiveExponent;
+    public float repulsiveCoefficient;
+    public float repulsiveExponent;
+    public float targetAngleCoefficient;
+    public float targetAngleExponent;
+    public float relativeBearingCoefficient;
+    public float relativeBearingExponent;
+    public int numFields;
+    public Vector3 position;
+    public float heading;
+    public Vector3 fieldPos;
+    public Vector3 movePosition;
+    public Vector3 frontPos;
+    public int commands;
+
+};
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshFilter))]
@@ -14,9 +37,12 @@ public class GraphPlane : MonoBehaviour
     Mesh mesh;
     MeshFilter meshFilter;
 
-    List<Vector3> vertices;
+    public List<Vector3> vertices;
     List<int> triangles;
+    public List<ShipData> allShipData;
+    public float[] test;
 
+    public ComputeShader potentialShader;
     public Vector2 size;
     public int resolution;
     public bool entSpecific;
@@ -27,6 +53,7 @@ public class GraphPlane : MonoBehaviour
         mesh = new Mesh();
         meshFilter = GetComponent<MeshFilter>();
         meshFilter.mesh = mesh;
+        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
     }
 
     // Start is called before the first frame update
@@ -34,14 +61,17 @@ public class GraphPlane : MonoBehaviour
     {
         size = GraphMgr.inst.size;
         resolution = GraphMgr.inst.resolution;
+        resolution = Mathf.Clamp(resolution, 0, 1000);
+        GeneratePlane(size, resolution);
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        allShipData = new List<ShipData>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        resolution = Mathf.Clamp(resolution, 0, 50);
-        GeneratePlane(size, resolution);
-        UpdateHeights();
+        csUpdateHeights(entity);
         AssignMesh();
     }
 
@@ -65,30 +95,29 @@ public class GraphPlane : MonoBehaviour
         }
 
         triangles = new List<int>();
+
+        int vert = 0;
+
         for (int row = 0; row < resolution; row++)
         {
             for (int col = 0; col < resolution; col++)
             {
-                int i = (row * resolution) + row + col;
 
-                triangles.Add(i);
-                triangles.Add(i + resolution + 1);
-                triangles.Add(i + resolution + 2);
+                triangles.Add(vert + 0);
+                triangles.Add(vert + resolution + 1);
+                triangles.Add(vert+1);
 
-                triangles.Add(i);
-                triangles.Add(i + resolution + 2);
-                triangles.Add(i + 1);
-
+                triangles.Add(vert +1 );
+                triangles.Add(vert + resolution + 1);
+                triangles.Add(vert + resolution + 2);
+                vert++;
             }
         }
     }
 
     void AssignMesh()
     {
-        mesh.Clear();
         mesh.vertices = vertices.ToArray();
-        mesh.triangles = triangles.ToArray();
-        mesh.colors = ChangeColors();
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
         mesh.RecalculateTangents();
@@ -107,6 +136,34 @@ public class GraphPlane : MonoBehaviour
                 vertex.y = (CalculatePotential(vertexPos, entity) / GraphMgr.inst.maxMag) * 400;
             vertices[i] = vertex;
         }
+    }
+    
+    void csUpdateHeights(Entity381 currentEnt)
+    {
+        updateFieldData();
+        ComputeBuffer shipsBuffer = new ComputeBuffer(allShipData.Count, sizeof(float)*23 + sizeof(int)*2);
+        shipsBuffer.SetData(allShipData);
+
+        int sizeOfVec3 = sizeof(float) * 3;
+
+        ComputeBuffer vertexBuffer = new ComputeBuffer(vertices.Count, sizeOfVec3);
+        Vector3[] worldVert = vertices.ToArray();
+        transform.TransformPoints(worldVert);
+        vertexBuffer.SetData(worldVert);
+
+        potentialShader.SetInt("numShips", EntityMgr.inst.entities.Count);
+        potentialShader.SetInt("entity", EntityMgr.inst.entities.IndexOf(currentEnt));
+        potentialShader.SetBuffer(0, "ships", shipsBuffer);
+        potentialShader.SetBuffer(0, "positions", vertexBuffer);
+
+        potentialShader.Dispatch(0, vertices.Count / 64, 1, 1);
+
+        vertexBuffer.GetData(worldVert);
+        transform.InverseTransformPoints(worldVert);
+        vertices = new List<Vector3>(worldVert);
+
+        shipsBuffer.Dispose();
+        vertexBuffer.Dispose();
     }
 
     float CalculatePotential(Vector3 position)
@@ -293,6 +350,7 @@ public class GraphPlane : MonoBehaviour
         return coeff;
     }
 
+    //now handled by shader graph
     Color[] ChangeColors()
     {
         Color[] colors = new Color[vertices.Count];
@@ -313,5 +371,36 @@ public class GraphPlane : MonoBehaviour
 
 
         return colors;
+    }
+
+    public void updateFieldData()
+    {
+        allShipData = new List<ShipData>();
+        foreach (Entity381 entity in EntityMgr.inst.entities)
+        {
+            ShipData shipData = new ShipData();
+            shipData.mass = entity.mass;
+            shipData.length = entity.length;
+            shipData.attractionCoefficient = entity.attractionCoefficient;
+            shipData.attractiveExponent = entity.attractiveExponent;
+            shipData.repulsiveCoefficient = entity.repulsiveCoefficient;
+            shipData.repulsiveExponent = entity.repulsiveExponent;
+            shipData.targetAngleCoefficient = entity.taCoefficient;
+            shipData.targetAngleExponent = entity.taExponent;
+            shipData.relativeBearingCoefficient = entity.rbCoefficient;
+            shipData.relativeBearingExponent = entity.rbExponent;
+            shipData.numFields = entity.numFields;
+            shipData.position = entity.position;
+            shipData.heading = entity.heading;
+            shipData.fieldPos = entity.fieldPos[0];
+            shipData.frontPos = entity.front;
+            shipData.commands = entity.transform.GetComponent<UnitAI>().commands.Count;
+            if (entity.transform.GetComponent<UnitAI>().commands.Count != 0)
+                shipData.movePosition = entity.transform.GetComponent<UnitAI>().commands[0].movePosition;
+            else
+                shipData.movePosition = Vector3.zero;
+
+            allShipData.Add(shipData);
+        }
     }
 }
